@@ -79,19 +79,30 @@ sections:
       title: Latest News
       subtitle:
       text:
+      # Choose how many pages you would like to display (0 = all pages)
       count: 5
+      # Filter on criteria
       filters:
         author: ''
         category: ''
-        exclude_featured: false
-        publication_type: ''
         tag: ''
+        exclude_featured: false
+        exclude_future: false
+        exclude_past: false
+        publication_type: ''
+      # Choose how many pages you would like to offset by
       offset: 0
+      # Page order: descending (desc) or ascending (asc) date.
       order: desc
+      # Page type to display. E.g. post, talk, publication...
       page_type: post
     design:
-      view: card
+      # Choose a layout view
+      view: date-title-summary
       columns: '1'
+      # Reduce spacing
+      spacing:
+        padding: [0, 0, 0, 0]
   
 #  - block: markdown
 #    content:
