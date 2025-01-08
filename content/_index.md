@@ -98,7 +98,7 @@ sections:
       page_type: post
     design:
       # Choose a layout view
-      view: date-title-summary
+      view: date-title-summary.start
       columns: '1'
       # Reduce spacing
       spacing:
