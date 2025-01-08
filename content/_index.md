@@ -45,14 +45,6 @@ sections:
   <li>Tea</li>
   <li>Milk</li>
   </ul>
-    - Human Centered NLP with applications to real world consequential tasks such as HealthCare, Writing Assistance
-    - Evaluation of NLP technologies, resources, and human language use
-    - Natural Language Generation
-    - Efficiency in Model Algorithms, Training, and Inference
-    - Morphology
-    - Syntax and Semantics
-    - Linguistic theories, Cognitive Modeling and Psycholinguistics
-    - Dialogue, spoken language
 
     design:
       columns: '1'
