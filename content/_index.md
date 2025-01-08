@@ -39,7 +39,8 @@ sections:
       title:
       subtitle: ''
       text: |-
-        Natural Language Processing (NLP) group at Stony Brook University is a team of researchers working on developing and studying state-of-the-art machine learning and computational methods for generating, analyzing and understanding language. Areas that we have particular strengths in include:
+        Natural Language Processing (NLP) group at Stony Brook University is a team of researchers working on developing and studying state-of-the-art machine learning and computational methods for generating, analyzing and understanding language.
+    Areas that we have particular strengths in include:
   <ul>
   <li>Coffee</li>
   <li>Tea</li>
