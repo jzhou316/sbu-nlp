@@ -1,24 +1,24 @@
 ---
 # Display name
-title: Alice Wu 吳恩達
+title: Niranjan Balasubramanian
 
 # Full name (for SEO)
-first_name: Alice
-last_name: Wu
+first_name: Niranjan
+last_name: Balasubramanian
 
 # Username (this should match the folder name)
 authors:
-  - 吳恩達
+  - Niranjan
 
 # Is this the primary user of the site?
 superuser: false
 
 # Role/position
-role: Professor of Artificial Intelligence
+role: Professor
 
 # Organizations/Affiliations
 organizations:
-  - name: Stanford University
+  - name: Stony Brook University
     url: ''
 
 # Short bio (displayed in user profile at end of posts)
@@ -54,7 +54,7 @@ social:
     link: https://twitter.com/GeorgeCushen
   - icon: google-scholar
     icon_pack: ai
-    link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+    link: https://scholar.google.com/citations?user=X3JCGVIAAAAJ&hl=en
   - icon: github
     icon_pack: fab
     link: https://github.com/gcushen
@@ -70,10 +70,7 @@ email: ''
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - Researchers
-  - Visitors
+  - Faculty
 ---
 
-吳恩達 is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+Niranjan Balasubramanian's research is motivated by the challenge of building systems that can extract, understand, and reason with information present in natural language texts. His research interests are in two broad areas: NLP and information retrieval. He has worked on different projects in areas like  Question Answering at a 4th Grade Level, Event Schema Generation from news stories, Machine Learning for Information Retrieval, Energy-efficient Mobile Search, and Automatic Wikipedia Pages.
