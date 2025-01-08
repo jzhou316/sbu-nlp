@@ -1,6 +1,6 @@
 ---
 # Leave the homepage title empty to use the site title
-title: Stony Brook NLP
+title:
 date: 2022-10-24
 type: landing
 
@@ -18,11 +18,11 @@ sections:
       text: |
         <br>
         
-        The **Stony Brook NLP** has been a center of excellence for Artificial Intelligence research, teaching, and practice since its founding in 2016.
+        The **Stony Brook Natural Language Processing (NLP)** has been a center of excellence for NLP and Artificial Intelligence research, teaching, and practice.
     
     design:
       spacing:
-        padding: [10, 0, 0, 0]
+        padding: [0, 0, 0, 0]
         margin: [0, 0, 0, 0]
       # For full-screen, add `min-h-screen` below
       css_class: "dark"
