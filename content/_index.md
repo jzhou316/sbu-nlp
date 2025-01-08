@@ -33,6 +33,38 @@ sections:
           filename: Web_Ready-231027_Fall Mall_008CSR.JPG
           filters:
             brightness: 0.5
+
+  - block: markdown
+    content:
+      title:
+      subtitle: ''
+      text: |
+        Natural Language Processing (NLP) group at Stony Brook University is a team of researchers working on developing and studying state-of-the-art machine learning and computational methods for generating, analyzing and understanding language.
+Areas that we have particular strengths in include:
+
+- Human Centered NLP with applications to real world consequential tasks such as HealthCare, Writing Assistance
+- Evaluation of NLP technologies, resources, and human language use
+- Natural Language Generation
+- Efficiency in Model Algorithms, Training, and Inference
+- Morphology
+- Syntax and Semantics
+- Linguistic theories, Cognitive Modeling and Psycholinguistics
+- Dialogue, spoken language
+
+    design:
+      columns: '1'
+#      background:
+#        image: 
+#          filename: coders.jpg
+#          filters:
+#            brightness: 1
+#          parallax: false
+#          position: center
+#          size: cover
+#          text_color_light: true
+      spacing:
+        padding: ['20px', '0', '20px', '0']
+      css_class: fullscreen
   
   - block: collection
     content:
