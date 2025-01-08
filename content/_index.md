@@ -8,14 +8,27 @@ sections:
   - block: hero
     content:
       title: |
-        Wowchemy
-        Research Group
+        Stony Brook NLP
       image:
         filename: welcome.jpg
       text: |
         <br>
         
-        The **Wowchemy Research Group** has been a center of excellence for Artificial Intelligence research, teaching, and practice since its founding in 2016.
+        The **Stony Brook NLP** has been a center of excellence for Artificial Intelligence research, teaching, and practice since its founding in 2016.
+    
+    design:
+      spacing:
+        padding: [0, 0, 0, 0]
+        margin: [0, 0, 0, 0]
+      # For full-screen, add `min-h-screen` below
+      css_class: "dark"
+      background:
+        color: "navy"
+        image:
+          # Add your image background to `assets/media/`.
+          filename: bg-triangles.svg
+          filters:
+            brightness: 0.5
   
   - block: collection
     content:
