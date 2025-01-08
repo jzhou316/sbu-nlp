@@ -1,16 +1,20 @@
 ---
 # Leave the homepage title empty to use the site title
-title:
+title: Stony Brook NLP
 date: 2022-10-24
 type: landing
+
+design:
+  # Default section spacing
+  spacing: "6rem"
 
 sections:
   - block: hero
     content:
       title: |
-        Stony Brook NLP
-      image:
-        filename: welcome.jpg
+#        Stony Brook NLP
+#      image:
+#        filename: welcome.jpg
       text: |
         <br>
         
@@ -18,7 +22,7 @@ sections:
     
     design:
       spacing:
-        padding: [0, 0, 0, 0]
+        padding: [10, 0, 0, 0]
         margin: [0, 0, 0, 0]
       # For full-screen, add `min-h-screen` below
       css_class: "dark"
