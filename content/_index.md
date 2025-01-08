@@ -64,7 +64,16 @@ sections:
       spacing:
         padding: ['20px', '0', '20px', '0']
       css_class: fullscreen
-  
+
+  - block: markdown
+    content:
+      title: News
+      subtitle: ''
+      text: |-
+        - PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)
+        - New NLP Faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University
+
+    
   - block: collection
     content:
       title: Latest News
@@ -84,25 +93,25 @@ sections:
       view: card
       columns: '1'
   
-  - block: markdown
-    content:
-      title:
-      subtitle: ''
-      text:
-    design:
-      columns: '1'
-      background:
-        image: 
-          filename: coders.jpg
-          filters:
-            brightness: 1
-          parallax: false
-          position: center
-          size: cover
-          text_color_light: true
-      spacing:
-        padding: ['20px', '0', '20px', '0']
-      css_class: fullscreen
+#  - block: markdown
+#    content:
+#      title:
+#      subtitle: ''
+#      text:
+#    design:
+#      columns: '1'
+#      background:
+#        image: 
+#          filename: coders.jpg
+#         filters:
+#            brightness: 1
+#          parallax: false
+#          position: center
+#          size: cover
+#          text_color_light: true
+#      spacing:
+#        padding: ['20px', '0', '20px', '0']
+#      css_class: fullscreen
 
   - block: collection
     content:
