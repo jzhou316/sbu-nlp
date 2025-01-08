@@ -26,7 +26,7 @@ sections:
         color: "navy"
         image:
           # Add your image background to `assets/media/`.
-          filename: bg-triangles.svg
+          filename: Web_Ready-231027_Fall Mall_008CSR.JPG
           filters:
             brightness: 0.5
   
