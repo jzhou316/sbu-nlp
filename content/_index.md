@@ -62,8 +62,9 @@ sections:
 #          size: cover
 #          text_color_light: true
       spacing:
-        padding: ['20px', '0', '0', '0']
-      css_class: fullscreen
+        padding: ['20px', '0', '20px', '0']
+      # this makes the section take the full screen
+#      css_class: fullscreen
 
   - block: markdown
     content:
