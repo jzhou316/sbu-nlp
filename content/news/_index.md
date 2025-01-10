@@ -10,7 +10,7 @@ cascade:
       show_breadcrumb: true
 
 sections:
-  - block: markdown-wide
+  - block: markdown
     content:
       title:
       subtitle: ''
