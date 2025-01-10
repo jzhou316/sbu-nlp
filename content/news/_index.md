@@ -28,3 +28,9 @@ sections:
         # Customize the section spacing. Order is top, right, bottom, left.
         padding: ['20px', '0', '0px', '0']
 ---
+
+## Recent News
+
+PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)
+
+New NLP Faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University
