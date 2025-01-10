@@ -1,7 +1,7 @@
 ---
 title: News
 summary: Recent News
-type: landing
+# type: landing
 
 # cascade:
 #   - _target:
