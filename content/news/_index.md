@@ -37,9 +37,9 @@ summary: Recent News
 
 2024/09 - 🎉 New NLP Faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University.
 
-2024/08 🏆 PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)!
+2024/08 - 🏆 PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)!
 
-2023/07 🏆 Paper “[Transfer and Active Learning for Dissonance Detection: Addressing the Rare-Class Challenge](https://aclanthology.org/2023.acl-long.665/)”, by PhD student [Swanie Juhng](https://swaniejuhng.github.io/) and team at Stony Brook, received the Outstanding Paper Award at [ACL 2023](https://2023.aclweb.org/)!
+2023/07 - 🏆 Paper “[Transfer and Active Learning for Dissonance Detection: Addressing the Rare-Class Challenge](https://aclanthology.org/2023.acl-long.665/)”, by PhD student [Swanie Juhng](https://swaniejuhng.github.io/) and team at Stony Brook, received the Outstanding Paper Award at [ACL 2023](https://2023.aclweb.org/)!
 
-2022/10 🏆 Yejin Choi (UW), former faculty member of Stony Brook NLP, wins a [MacArthur Fellowship](https://www.macfound.org/fellows/class-of-2022/yejin-choi) (aka the genius award)!
+2022/10 - 🏆 Yejin Choi (UW), former faculty member of Stony Brook NLP, wins a [MacArthur Fellowship](https://www.macfound.org/fellows/class-of-2022/yejin-choi) (aka the genius award)!
 
