@@ -9,16 +9,16 @@ summary: Recent News
 #     params:
 #       show_breadcrumb: true
 
-# sections:
-#   - block: markdown
-#     content:
-#       title:
-#       subtitle: ''
-#       text: |-
+sections:
+  - block: markdown
+    content:
+      title:
+      subtitle: ''
+      text: |-
     
-#         PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)
+        PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)
 
-#         New NLP Faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University
+        New NLP Faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University
     
 #     design:
 #       # css_style: "background-color: #f0f0f0; padding: 10px;"
