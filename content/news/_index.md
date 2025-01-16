@@ -32,6 +32,8 @@ sections:
 ## Recent News
 <br>
 
+2025/01 - 🎊 PhD student Siddharth Mangalik, advisored by Professor Andrew Schwartz, successfully presented his PhD proposal!
+
 2025/01 - 📣 The 31st International Conference on Computational Linguistics ([COLING 2025](https://coling2025.org/)), chaired by Professor [Owen Rambow](https://www.cs.stonybrook.edu/people/faculty/owenrambow), will take place in Abu Dhabi, UAE from January 19th to 24th, 2025.
 
 2024/09 - 🏆 Professor [Steven Skiena](https://www3.cs.stonybrook.edu/~skiena/) and Team Win [2024 KDD Test of Time Award](https://kdd2024.kdd.org/) for [Research](https://news.stonybrook.edu/university/steven-skiena-and-team-win-2024-kdd-test-of-time-award-for-research/)!
