@@ -39,12 +39,16 @@ sections:
       title:
       subtitle: ''
       text: |-
-        Natural Language Processing (NLP) group at Stony Brook University is a team of researchers working on developing and studying state-of-the-art machine learning and computational methods for generating, analyzing and understanding language.
-        Areas that we have particular strengths in include:
-        - Human Centered NLP with applications to real world consequential tasks such as HealthCare, Writing Assistance
+        Natural Language Processing (NLP) group at Stony Brook University is a team of researchers working on developing and studying state-of-the-art machine learning and computational methods for generating, analyzing and understanding language. With the development of large language models (LLMs) and advent of artificial super intelligence, we are at the forefront of the research, work both in-depth and broadly to understand, improve, evaluate, and demoncratize the advanced technologies that stems from traditional NLP research.
+        Example areas that we have particular strengths in and actively working in include (these may change due to the fast-paced frontier research):
+        - Language models inside out
+        - Natural language generation
+        - Model efficiency, including training/inference algorithms and hardware- and system-aware efficiency
         - Evaluation of NLP technologies, resources, and human language use
-        - Natural Language Generation
-        - Efficiency in Model Algorithms, Training, and Inference
+        - Advanced LLM reasoning
+        - Multimodal AI such as vision-language models
+        - Agentic frameworks and benchmarks
+        - 
         - Morphology
         - Syntax and Semantics
         - Linguistic theories, Cognitive Modeling and Psycholinguistics
