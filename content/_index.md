@@ -39,20 +39,24 @@ sections:
       title:
       subtitle: ''
       text: |-
-        Natural Language Processing (NLP) group at Stony Brook University is a team of researchers working on developing and studying state-of-the-art machine learning and computational methods for generating, analyzing and understanding language. With the development of large language models (LLMs) and advent of artificial super intelligence, we are at the forefront of the research, work both in-depth and broadly to understand, improve, evaluate, and demoncratize the advanced technologies that stems from traditional NLP research.
-        Example areas that we have particular strengths in and actively working in include (these may change due to the fast-paced frontier research):
-        - Language models inside out
+        Welcome to the Natural Language Processing (NLP) group at Stony Brook University. We are a team of researchers dedicated to developing and studying cutting-edge machine learning and computational methods for generating, analyzing, and understanding language.
+
+        In the era of large language models (LLMs) and rapidly advancing artificial intelligence (AI), our work is at the forefront of the field. We focus on both in-depth and broad research to understand, improve, evaluate, and democratize the advanced technologies stemming from traditional and modern NLP.
+
+        Our group's areas of expertise and active research include:
+        - Language models (e.g., interpretability, development, architecture)
         - Natural language generation
-        - Model efficiency, including training/inference algorithms and hardware- and system-aware efficiency
-        - Evaluation of NLP technologies, resources, and human language use
+        - Model efficiency (e.g., training/inference algorithms, hardware- and system-aware efficiency)
+        - Evaluation of NLP technologies and human language use
         - Advanced LLM reasoning
-        - Multimodal AI such as vision-language models
+        - Multimodal AI (e.g., vision-language models)
         - Agentic frameworks and benchmarks
-        - 
-        - Morphology
-        - Syntax and Semantics
-        - Linguistic theories, Cognitive Modeling and Psycholinguistics
-        - Dialogue, spoken language
+        - Human-AI alignment and collaboration
+        - Impact of generative AI
+        - The fundamentals of language, including morphology, syntax, and semantics
+        - Linguistic theories, Cognitive Modeling, and Psycholinguistics
+        - Dialogue and spoken language
+
 
     design:
       columns: '1'
@@ -75,8 +79,9 @@ sections:
       title: News
       subtitle: ''
       text: |-
-        - PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)
-        - New NLP Faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University
+        - [2025/08] New NLP faculty [Tuhin Chakrabarty](https://tuhinjubcse.github.io/) joins Stony Brook University
+        - [2024/08] PhD student [Harsh Trivedi](https://harshtrivedi.me/) wins [Best Resource Paper](https://aclanthology.org/2024.acl-long.850/) at ACL 2024 with [AppWorld](https://appworld.dev/)
+        - [2024/08] New NLP faculty [Jiawei (Joe) Zhou](https://joezhouai.com) joins Stony Brook University
 
     
   - block: collection
