@@ -53,6 +53,7 @@ sections:
         - Agentic frameworks and benchmarks
         - Human-AI alignment and collaboration
         - Impact of generative AI
+        - Human Centered NLP with applications to real world consequential tasks such as healthCare, writing assistance
         - The fundamentals of language, including morphology, syntax, and semantics
         - Linguistic theories, Cognitive Modeling, and Psycholinguistics
         - Dialogue and spoken language
