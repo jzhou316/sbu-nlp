@@ -1,0 +1,25 @@
+{{- $people := .Pages -}}
+<div class="people-grid">
+  {{- range $people }}
+    {{- $ext := or .Params.website .Params.homepage -}}
+    {{- $href := cond (ne $ext nil) $ext .RelPermalink -}}
+
+    <article class="person-card">
+      <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
+        {{ with .Params.avatar }}
+          <img class="avatar" src="{{ . | relURL }}" alt="{{ $.Params.title | default $.Title }}">
+        {{ end }}
+      </a>
+
+      <h3 class="people-name">
+        <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
+          {{ .Params.title | default .Title }}
+        </a>
+      </h3>
+
+      {{ with .Params.role }}
+        <p class="people-role">{{ . }}</p>
+      {{ end }}
+    </article>
+  {{- end }}
+</div>

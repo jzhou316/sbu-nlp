@@ -16,6 +16,9 @@ superuser: false
 # Role/position
 role: Associate Professor
 
+# Group website
+website: https://www3.cs.stonybrook.edu/~niranjan/
+
 # Organizations/Affiliations
 organizations:
   - name: Stony Brook University
