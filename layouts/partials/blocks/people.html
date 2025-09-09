@@ -17,9 +17,8 @@
         </a>
       </h3>
 
-      {{ with .Params.role }}
-        <p class="people-role">{{ . }}</p>
-      {{ end }}
+      {{/* keep role/social rendering as-is; the block's design flags control visibility */}}
+      {{ if .Params.role }}<p class="people-role">{{ .Params.role }}</p>{{ end }}
     </article>
   {{- end }}
 </div>
