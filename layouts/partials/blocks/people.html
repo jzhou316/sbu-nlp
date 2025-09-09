@@ -1,67 +1,76 @@
-{{/* Project override for People block (module-agnostic, no blox-core).
-     - Works on GitHub/Netlify even if .Pages is empty in block context.
-     - Uses site pages from the "authors" section.
-     - If author has .Params.website (or .Params.homepage), both avatar and name
-       link externally (new tab). Otherwise they link to the internal profile page.
-*/}}
+{{/* Hugo Blox: People */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
 
-{{/* 1 Collect all author pages robustly */}}
-{{ $authorsSection := site.GetPage "section" "authors" }}
-{{ $all := slice }}
-{{ if $authorsSection }}
-  {{ $all = $authorsSection.Pages }}
-{{ end }}
-{{ if eq (len $all) 0 }}
-  {{/* Fallback in case section lookup differs */}}
-  {{ $all = where site.RegularPages "Section" "authors" }}
-{{ end }}
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $show_social := $block.design.show_social | default false }}
+{{ $show_interests := $block.design.show_interests | default true }}
+{{ $show_organizations := $block.design.show_organizations | default false }}
+{{ $show_role := $block.design.show_role | default true }}
 
-{{/* 2 Filter by requested user_groups (if provided) */}}
-{{ $want := .content.user_groups }}
-{{ $filtered := slice }}
-{{ range $all }}
-  {{ $mine := .Params.user_groups | default (slice) }}
-  {{ if or (not $want) (gt (len (intersect $mine $want)) 0) }}
-    {{ $filtered = $filtered | append . }}
+<div class="row justify-content-center people-widget">
+  {{ with $block.content.title }}
+    <div class="section-heading col-12 mb-3 text-center">
+      <h1 class="mb-0">{{ . | markdownify | emojify }}</h1>
+      {{ with $block.content.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
   {{ end }}
-{{ end }}
 
-{{/* 3 Sort */}}
-{{ $sortBy := default "Params.last_name" .content.sort_by }}
-{{ $asc    := default true .content.sort_ascending }}
-{{ $order  := cond $asc "asc" "desc" }}
-{{ $filtered = sort $filtered $sortBy $order }}
+  {{ with $block.content.text }}
+    <div class="col-md-12">
+      {{ . | emojify | $page.RenderString }}
+    </div>
+  {{ end }}
 
-{{/* 4 Render cards */}}
-<div class="people-grid">
-  {{ range $filtered }}
-    {{/* external href if website/homepage present */}}
-    {{ $ext  := or .Params.website .Params.homepage }}
-    {{ $href := cond $ext $ext .RelPermalink }}
+  {{ range $block.content.user_groups }}
+    {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
 
-    <article class="person-card">
-      <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
-        {{/* avatar can be string or map {filename: "..."} depending on theme */}}
-        {{ $avatar := "" }}
-        {{ with .Params.avatar }}
-          {{ if (reflect.IsMap .) }}
-            {{ with .filename }}{{ $avatar = . }}{{ end }}
-          {{ else }}
-            {{ $avatar = . }}
-          {{ end }}
+    {{/* Sort */}}
+    {{ $sort_by := $block.content.sort_by | default "Params.last_name" }}
+    {{ $sort_by = partial "blox-core/functions/get_sort_by_parameter" $sort_by }}
+    {{ $sort_ascending := $block.content.sort_ascending | default true }}
+    {{ $sort_order := cond $sort_ascending "asc" "desc" }}
+    {{ $query = sort $query $sort_by $sort_order }}
+
+    {{if $query | and (gt (len $block.content.user_groups) 1) }}
+      <div class="col-md-12">
+        <h2 class="mb-4">{{ . | markdownify }}</h2>
+      </div>
+    {{end}}
+
+    {{ range $query }}
+      {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+      {{/* Get link to user's profile page. */}}
+      {{/* Prefer external website/homepage; else fall back to internal author page */}}
+      {{ $ext  := or .Params.website .Params.homepage }}
+      {{ $link := "" }}
+      {{ with site.GetPage (printf "/authors/%s" (path.Base .File.Dir)) }}{{ $link = .RelPermalink }}{{ end }}
+      {{ if $ext }}{{ $link = $ext }}{{ end }}
+      {{ $is_external := $ext }}  {{/* truthy when using external link */}}
+
+      <div class="col-12 col-sm-auto people-person">
+        {{ $src := "" }}
+        {{ if site.Params.features.avatar.gravatar }}
+          {{ $src = printf "https://s.gravatar.com/avatar/%s?s=150" (md5 .Params.email) }}
+        {{ else if $avatar }}
+          {{ $avatar_image := $avatar.Fill "270x270 Center" }}
+          {{ $src = $avatar_image.RelPermalink }}
         {{ end }}
-        {{ if $avatar }}
-          <img class="avatar" src="{{ $avatar | relURL }}" alt="{{ .Params.title | default .Title }}">
+        {{ if $src }}
+          {{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
+          {{with $link}}<a href="{{.}}">{{end}}<img width="270" height="270" loading="lazy" class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $src }}" alt="Avatar">{{if $link}}</a>{{end}}
         {{ end }}
-      </a>
 
-      <h3 class="people-name">
-        <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
-          {{ .Params.title | default .Title }}
-        </a>
-      </h3>
-
-      {{ with .Params.role }}<p class="people-role">{{ . }}</p>{{ end }}
-    </article>
+        <div class="portrait-title">
+          <h2>{{with $link}}<a href="{{.}}">{{end}}{{ .Title }}{{if $link}}</a>{{end}}</h2>
+          {{ if and $show_organizations .Params.organizations }}{{ range .Params.organizations }}<h3>{{ .name }}</h3>{{ end }}{{ end }}
+          {{ if and $show_role .Params.role }}<h3>{{ .Params.role | markdownify | emojify }}</h3>{{ end }}
+          {{ if $show_social }}{{ partial "social_links" . }}{{ end }}
+          {{ if and $show_interests .Params.interests }}<p class="people-interests">{{ delimit .Params.interests ", " | markdownify | emojify }}</p>{{ end }}
+        </div>
+      </div>
+    {{ end }}
   {{ end }}
 </div>

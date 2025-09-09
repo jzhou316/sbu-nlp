@@ -1,0 +1,60 @@
+{{/* 1 Collect all author pages robustly */}}
+{{ $authorsSection := site.GetPage "section" "authors" }}
+{{ $all := slice }}
+{{ if $authorsSection }}
+  {{ $all = $authorsSection.Pages }}
+{{ end }}
+{{ if eq (len $all) 0 }}
+  {{/* Fallback in case section lookup differs */}}
+  {{ $all = where site.RegularPages "Section" "authors" }}
+{{ end }}
+
+{{/* 2 Filter by requested user_groups (if provided) */}}
+{{ $want := .content.user_groups }}
+{{ $filtered := slice }}
+{{ range $all }}
+  {{ $mine := .Params.user_groups | default (slice) }}
+  {{ if or (not $want) (gt (len (intersect $mine $want)) 0) }}
+    {{ $filtered = $filtered | append . }}
+  {{ end }}
+{{ end }}
+
+{{/* 3 Sort */}}
+{{ $sortBy := default "Params.last_name" .content.sort_by }}
+{{ $asc    := default true .content.sort_ascending }}
+{{ $order  := cond $asc "asc" "desc" }}
+{{ $filtered = sort $filtered $sortBy $order }}
+
+{{/* 4 Render cards */}}
+<div class="people-grid">
+  {{ range $filtered }}
+    {{/* external href if website/homepage present */}}
+    {{ $ext  := or .Params.website .Params.homepage }}
+    {{ $href := cond $ext $ext .RelPermalink }}
+
+    <article class="person-card">
+      <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
+        {{/* avatar can be string or map {filename: "..."} depending on theme */}}
+        {{ $avatar := "" }}
+        {{ with .Params.avatar }}
+          {{ if (reflect.IsMap .) }}
+            {{ with .filename }}{{ $avatar = . }}{{ end }}
+          {{ else }}
+            {{ $avatar = . }}
+          {{ end }}
+        {{ end }}
+        {{ if $avatar }}
+          <img class="avatar" src="{{ $avatar | relURL }}" alt="{{ .Params.title | default .Title }}">
+        {{ end }}
+      </a>
+
+      <h3 class="people-name">
+        <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
+          {{ .Params.title | default .Title }}
+        </a>
+      </h3>
+
+      {{ with .Params.role }}<p class="people-role">{{ . }}</p>{{ end }}
+    </article>
+  {{ end }}
+</div>
