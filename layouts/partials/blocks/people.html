@@ -1,13 +1,57 @@
-{{- $people := .Pages -}}
+{{/* Project override for People block (module-agnostic, no blox-core).
+     - Works on GitHub/Netlify even if .Pages is empty in block context.
+     - Uses site pages from the "authors" section.
+     - If author has .Params.website (or .Params.homepage), both avatar and name
+       link externally (new tab). Otherwise they link to the internal profile page.
+*/}}
+
+{{/* 1 Collect all author pages robustly */}}
+{{ $authorsSection := site.GetPage "section" "authors" }}
+{{ $all := slice }}
+{{ if $authorsSection }}
+  {{ $all = $authorsSection.Pages }}
+{{ end }}
+{{ if eq (len $all) 0 }}
+  {{/* Fallback in case section lookup differs */}}
+  {{ $all = where site.RegularPages "Section" "authors" }}
+{{ end }}
+
+{{/* 2 Filter by requested user_groups (if provided) */}}
+{{ $want := .content.user_groups }}
+{{ $filtered := slice }}
+{{ range $all }}
+  {{ $mine := .Params.user_groups | default (slice) }}
+  {{ if or (not $want) (gt (len (intersect $mine $want)) 0) }}
+    {{ $filtered = $filtered | append . }}
+  {{ end }}
+{{ end }}
+
+{{/* 3 Sort */}}
+{{ $sortBy := default "Params.last_name" .content.sort_by }}
+{{ $asc    := default true .content.sort_ascending }}
+{{ $order  := cond $asc "asc" "desc" }}
+{{ $filtered = sort $filtered $sortBy $order }}
+
+{{/* 4 Render cards */}}
 <div class="people-grid">
-  {{- range $people }}
-    {{- $ext := or .Params.website .Params.homepage -}}
-    {{- $href := cond (ne $ext nil) $ext .RelPermalink -}}
+  {{ range $filtered }}
+    {{/* external href if website/homepage present */}}
+    {{ $ext  := or .Params.website .Params.homepage }}
+    {{ $href := cond $ext $ext .RelPermalink }}
 
     <article class="person-card">
       <a href="{{ $href }}" {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
+        {{/* avatar can be string or map {filename: "..."} depending on theme */}}
+        {{ $avatar := "" }}
         {{ with .Params.avatar }}
-          <img class="avatar" src="{{ . | relURL }}" alt="{{ $.Params.title | default $.Title }}">
+          {{ if (reflect.IsMap .) }}
+            {{ with .filename }}{{ $avatar = . }}{{ end }}
+          {{ else }}
+            {{ $avatar = . }}
+          {{ end }}
+        {{ end }}
+        {{ if $avatar }}
+          <img class="avatar" src="{{ $avatar | relURL }}" alt="{{ .Params.title | default .Title }}">
         {{ end }}
       </a>
 
@@ -17,8 +61,7 @@
         </a>
       </h3>
 
-      {{/* keep role/social rendering as-is; the block's design flags control visibility */}}
-      {{ if .Params.role }}<p class="people-role">{{ .Params.role }}</p>{{ end }}
+      {{ with .Params.role }}<p class="people-role">{{ . }}</p>{{ end }}
     </article>
-  {{- end }}
+  {{ end }}
 </div>
