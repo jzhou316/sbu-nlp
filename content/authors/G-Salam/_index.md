@@ -15,7 +15,7 @@ superuser: false
 role: PhD Student
 
 # Personal website
-website: www.salamkhalifa.com
+website: https://www.salamkhalifa.com
 
 # Organizations/Affiliations
 organizations:
