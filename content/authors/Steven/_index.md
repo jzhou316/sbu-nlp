@@ -16,6 +16,8 @@ superuser: false
 # Role/position
 role: Professor
 
+website: https://www3.cs.stonybrook.edu/~skiena/
+
 # Organizations/Affiliations
 organizations:
   - name: Stony Brook University

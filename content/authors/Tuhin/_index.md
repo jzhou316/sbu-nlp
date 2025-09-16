@@ -17,6 +17,8 @@ superuser: false
 # Role/position
 role: Assistant Professor
 
+website: https://tuhinjubcse.github.io/
+
 # Organizations/Affiliations
 organizations:
   - name: Stony Brook University

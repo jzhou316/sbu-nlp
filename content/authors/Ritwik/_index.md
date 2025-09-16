@@ -16,6 +16,8 @@ superuser: false
 # Role/position
 role: Research Asssitant Professor
 
+website: https://www.ritwikbanerjee.com/
+
 # Organizations/Affiliations
 organizations:
   - name: Stony Brook University
