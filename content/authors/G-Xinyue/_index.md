@@ -51,7 +51,7 @@ social:
     link: https://github.com/cauchy221
   - icon: twitter
     icon_pack: fab
-    link: @irisiris_l
+    link: irisiris_l
 
 email: ''
 
