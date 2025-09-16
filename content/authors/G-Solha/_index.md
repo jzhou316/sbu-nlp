@@ -15,7 +15,6 @@ superuser: false
 role: PhD Student
 
 # Personal website
-website: N.A
 
 # Organizations/Affiliations
 organizations:
