@@ -8,4 +8,9 @@ view: citation
 banner:
   caption: ''
   image: ''
+
+cascade:
+  _build:
+    render: never   # no /publication/<slug> pages
+    list: local     # still list items on the section page
 ---
