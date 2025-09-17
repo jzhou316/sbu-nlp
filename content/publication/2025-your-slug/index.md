@@ -3,8 +3,8 @@ title: "Example Conference Paper"
 authors: ["Niranjan Balasubramanian", "Coauthor Name"]
 
 # dates must be in the PAST to appear
-date: 2020-09-19T14:00:00-04:00
-publishDate: 2020-09-19T14:00:00-04:00
+date: '2013-07-01T00:00:00Z'
+publishDate: '2013-07-01T00:00:00Z'
 draft: false
 
 publication_types: ["paper-conference"]
