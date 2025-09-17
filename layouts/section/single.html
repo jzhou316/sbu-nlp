@@ -1,0 +1,44 @@
+{{ define "main" }}
+<article class="container my-5">
+
+  <h1 class="mb-4">{{ .Title }}</h1>
+
+  <div class="row g-4 align-items-start">
+    <div class="col-md-3">
+      {{ with .Resources.GetMatch "featured*" }}
+        <img class="img-fluid rounded" src="{{ .RelPermalink }}" alt="">
+      {{ end }}
+    </div>
+
+    <div class="col-md-9">
+      {{ with .Params.speaker }}<h3 class="mt-0">{{ . }}</h3>{{ end }}
+      {{ with .Params.affiliation }}<div class="text-muted">{{ . }}</div>{{ end }}
+
+      <div class="mt-2">
+        <strong>Date</strong> · {{ .Date.Format "Jan 2, 2006 3:04 PM" }}
+        {{ with .Params.end_time }} – {{ . }}{{ end }}
+      </div>
+
+      {{ with .Params.location }}
+        <div><strong>Location</strong> · {{ . }}</div>
+      {{ end }}
+
+      {{ with .Params.links }}
+        <div class="mt-2 d-flex flex-wrap gap-2">
+          {{ with .slides }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Slides</a>{{ end }}
+          {{ with .video }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Video</a>{{ end }}
+          {{ with .website }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Event page</a>{{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+
+  {{ with .Params.abstract }}
+    <h3 class="mt-4">Abstract</h3>
+    <div>{{ . | markdownify }}</div>
+  {{ end }}
+
+  <!-- Optional additional content -->
+  {{ .Content }}
+</article>
+{{ end }}

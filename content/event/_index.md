@@ -1,5 +1,5 @@
 ---
-title: Recent & Upcoming Events
+title: Speaker Series
 
 # Listing view
 view: compact

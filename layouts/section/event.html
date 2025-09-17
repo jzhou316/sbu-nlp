@@ -1,0 +1,18 @@
+{{ define "main" }}
+<article class="container my-5">
+  <header class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">{{ .Title | default "Recent & Upcoming Events" }}</h1>
+
+    <!-- Button to history page -->
+    <a class="btn btn-outline-primary"
+       href="https://nlp.cs.stonybrook.edu/content/speaker-series">
+      Past speakers
+    </a>
+  </header>
+
+  <!-- Render events (newest first) -->
+  {{ range .Pages.ByDate.Reverse }}
+    {{ .Render "summary" }}
+  {{ end }}
+</article>
+{{ end }}
