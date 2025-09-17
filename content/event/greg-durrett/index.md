@@ -11,8 +11,7 @@ publishDate: 2025-09-01T00:00:00-04:00
 event: "SBU NLP Speaker Series"
 tags: ["Speaker Series"]
 
-location: |
-  NCS 120 & [Join via Zoom](https://stonybrook.zoom.us/j/95240619421?pwd=Xh3uafNBaQOrC5O3DyjCidLE9jLkS9.1)
+location: NCS 120 
 
 summary: "LLM Reasoning Beyond Scaling"
 featured: true
