@@ -5,11 +5,14 @@ role: "Associate Professor"
 affiliation: "New York University"
 
 date: 2025-09-18T14:00:00-04:00
-date_end: 2025-09-18T15:00:00-04:00
+date_end: 2025-09-19T15:00:00-04:00
 publishDate: 2025-09-01T00:00:00-04:00
 
 event: "SBU NLP Speaker Series"
 summary: "LLM Reasoning Beyond Scaling"   # <- talk title
+
+location: "NCS 120"
+
 featured: true
 draft: false
 
