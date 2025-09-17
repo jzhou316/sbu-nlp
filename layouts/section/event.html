@@ -1,18 +1,37 @@
 {{ define "main" }}
-<article class="container my-5">
-  <header class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">{{ .Title | default "Recent & Upcoming Events" }}</h1>
-
-    <!-- Button to history page -->
-    <a class="btn btn-outline-primary"
-       href="https://nlp.cs.stonybrook.edu/content/speaker-series">
+<main class="container py-5">
+  <header class="mb-4 text-center">
+    <h1>Speaker Series</h1>
+    <a class="btn btn-outline-primary mt-2" href="https://nlp.cs.stonybrook.edu/content/speaker-series" target="_blank">
       Past speakers
     </a>
   </header>
 
-  <!-- Render events (newest first) -->
-  {{ range .Pages.ByDate.Reverse }}
-    {{ .Render "summary" }}
-  {{ end }}
-</article>
+  <div class="row">
+    {{ $sec := site.GetPage "section" "event" }}
+    {{ if $sec }}
+      {{ range $sec.Pages.ByDate.Reverse }}
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            {{ with .Resources.GetMatch "featured*" }}
+              <img src="{{ .RelPermalink }}" class="card-img-top" alt="{{ $.Title }}">
+            {{ end }}
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h5>
+              {{ with .Params.speaker }}
+                <p class="mb-1"><strong>{{ . }}</strong>{{ with $.Params.affiliation }} — {{ . }}{{ end }}</p>
+              {{ end }}
+              <p class="card-text">{{ .Summary }}</p>
+              {{ with .Date }}<p class="text-muted">{{ .Format "Jan 2, 2006 3:04 PM" }}</p>{{ end }}
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    {{ else }}
+      <p>No events found.</p>
+    {{ end }}
+  </div>
+</main>
 {{ end }}
