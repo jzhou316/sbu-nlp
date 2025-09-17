@@ -1,30 +1,22 @@
 ---
-title: "YOUR PAPER TITLE"
-authors:
-  - "FIRST AUTHOR"
-  - "Niranjan Balasubramanian"
-  - "OTHER CO-AUTHORS"
-date: 2025-05-01
-publishDate: 2025-05-01
+title: "Example Conference Paper"
+authors: ["Niranjan Balasubramanian", "Coauthor Name"]
 
-# CSL type: 'paper-conference', 'article-journal', etc.
+# dates must be in the PAST to appear
+date: 2025-01-15T00:00:00Z
+publishDate: 2025-01-20T00:00:00Z
+draft: false
+
 publication_types: ["paper-conference"]
+publication: "Proceedings of Somewhere 2025"
 
-# Visible venue line under the title
-publication: In *VENUE 2025*
+# links – only add what you want shown
+url_pdf: "https://arxiv.org/pdf/2509.08808"   # or a full URL
+# url_code: ""
+# url_dataset: ""
+# url_video: ""
 
-# Optional: short one-liner that appears on the card
-summary: "ONE-LINE SUMMARY (optional)"
-
-# Buttons (PDF required by our new policy; others optional)
-url_pdf: "https://arxiv.org/pdf/XXXX.XXXXX.pdf"
-url_code: ""
-url_dataset: ""
-url_video: ""
-
-# (Optional) set featured image by adding featured.jpg in this folder
+# card image (optional)
 image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
+  preview_only: true
 ---
