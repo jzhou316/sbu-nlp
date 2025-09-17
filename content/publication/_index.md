@@ -1,16 +1,14 @@
 ---
-title: Publications
+title: "Publications"
+type: publication
 
-# Listing view
-view: citation
-
-# Optional banner image (relative to `assets/media/` folder).
-banner:
-  caption: ''
-  image: ''
-
+# Keep the section page, hide individual paper pages
 cascade:
   _build:
-    render: never   # no /publication/<slug> pages
-    list: local     # still list items on the section page
+    list: local       # include children in this section's list
+    render: never     # DO NOT render /publication/<slug>
+
+draft: false
+
+
 ---
