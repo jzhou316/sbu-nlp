@@ -1,19 +1,15 @@
 ---
-title: "Greg Durrett — SBU NLP Speaker Series"
+title: "Speaker Series"
 speaker: "Greg Durrett"
+role: "Associate Professor"
 affiliation: "New York University"
 
-# Talk time
 date: 2025-09-18T14:00:00-04:00
 date_end: 2025-09-18T15:00:00-04:00
 publishDate: 2025-09-01T00:00:00-04:00
 
 event: "SBU NLP Speaker Series"
-tags: ["Speaker Series"]
-
-location: NCS 120 
-
-summary: "LLM Reasoning Beyond Scaling"
+summary: "LLM Reasoning Beyond Scaling"   # <- talk title
 featured: true
 draft: false
 

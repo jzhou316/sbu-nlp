@@ -1,12 +1,11 @@
 {{ define "main" }}
 <main class="container py-5">
-  <header class="mb-4 text-center">
-    <h1>Speaker Series</h1>
-    <a class="btn btn-outline-primary mt-2" href="https://nlp.cs.stonybrook.edu/content/speaker-series" target="_blank">
-      Past speakers
-    </a>
-  </header>
-
+<header class="mb-4 text-center">
+  <h1>Speaker Series</h1>
+  <a class="btn btn-outline-primary mt-2" href="/sbu-nlp/speaker-series/past/">
+    Past speakers
+  </a>
+</header>
   <div class="row">
     {{ $sec := site.GetPage "section" "event" }}
     {{ if $sec }}

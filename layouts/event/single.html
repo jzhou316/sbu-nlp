@@ -1,44 +1,39 @@
 {{ define "main" }}
 <article class="container my-5">
 
-  <h1 class="mb-4">{{ .Title }}</h1>
+  <!-- Header -->
+  <header class="mb-4">
+    <h1 class="mb-1">
+      {{ with .Params.speaker }}{{ . }}{{ end }}
+      {{ with .Params.role }}, {{ . }}{{ end }}
+      {{ with .Params.affiliation }}, {{ . }}{{ end }}
+    </h1>
+    {{ with .Params.summary }}<h2 class="h4 text-muted mb-2">{{ . }}</h2>{{ end }}
+    {{ with .Date }}
+      <div class="text-muted">{{ .Format "Monday, Jan 2, 2006 · 3:04 PM" }}
+        {{ with $.Params.date_end }} – {{ dateFormat "3:04 PM" . }}{{ end }}
+      </div>
+    {{ end }}
+  </header>
 
-  <div class="row g-4 align-items-start">
+  <div class="row g-4">
     <div class="col-md-3">
       {{ with .Resources.GetMatch "featured*" }}
         <img class="img-fluid rounded" src="{{ .RelPermalink }}" alt="">
       {{ end }}
-    </div>
-
-    <div class="col-md-9">
-      {{ with .Params.speaker }}<h3 class="mt-0">{{ . }}</h3>{{ end }}
-      {{ with .Params.affiliation }}<div class="text-muted">{{ . }}</div>{{ end }}
-
-      <div class="mt-2">
-        <strong>Date</strong> · {{ .Date.Format "Jan 2, 2006 3:04 PM" }}
-        {{ with .Params.end_time }} – {{ . }}{{ end }}
-      </div>
-
       {{ with .Params.location }}
-        <div><strong>Location</strong> · {{ . }}</div>
+        <div class="mt-3"><strong>Location:</strong> {{ . | markdownify }}</div>
       {{ end }}
-
-      {{ with .Params.links }}
-        <div class="mt-2 d-flex flex-wrap gap-2">
-          {{ with .slides }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Slides</a>{{ end }}
-          {{ with .video }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Video</a>{{ end }}
-          {{ with .website }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Event page</a>{{ end }}
+      {{ with .Params.url_video }}
+        <div class="mt-2">
+          <a class="btn btn-sm btn-outline-primary" href="{{ . }}">Join Zoom</a>
         </div>
       {{ end }}
     </div>
+
+    <div class="col-md-9">
+      {{ with .Content }}{{ . }}{{ end }}
+    </div>
   </div>
-
-  {{ with .Params.abstract }}
-    <h3 class="mt-4">Abstract</h3>
-    <div>{{ . | markdownify }}</div>
-  {{ end }}
-
-  <!-- Optional additional content -->
-  {{ .Content }}
 </article>
 {{ end }}
