@@ -1,46 +1,20 @@
 {{ define "main" }}
-<div class="container my-6">
-  <h1 class="mb-4">Publications</h1>
+<main class="container my-5">
+  <h1 class="mb-4">{{ .Title | default "Publications" }}</h1>
 
-  {{/* Show 2024–2025 first, newest on top */}}
-  {{ $pubs := where .Pages ".Date.Year" "in" (slice 2024 2025) | sort "Date" "desc" }}
+  {{ range .RegularPages.ByDate.Reverse }}
+    <article class="mb-4">
+      <div class="fw-semibold">{{ .Title }}</div>
+      {{ with .Params.authors }}<div class="text-muted">{{ delimit . ", " }}</div>{{ end }}
+      {{ with .Params.publication }}<div><em>{{ . }}</em></div>{{ end }}
 
-  {{ if not (len $pubs) }}
-    <p>No publications yet.</p>
-  {{ end }}
-
-  {{ range $pubs }}
-    <div class="card mb-4">
-      <div class="card-body">
-        <h3 class="card-title mb-1">
-          {{/* Title links to PDF if present, otherwise no link */}}
-          {{ with .Params.url_pdf }}
-            <a href="{{ . }}">{{ $.Title }}</a>
-          {{ else }}
-            {{ $.Title }}
-          {{ end }}
-        </h3>
-
-        {{ with .Params.authors }}
-          <div class="text-muted small mb-1">{{ delimit . ", " }}</div>
-        {{ end }}
-
-        {{ with .Params.publication }}
-          <div class="mb-2"><em>{{ . | markdownify }}</em></div>
-        {{ end }}
-
-        {{ with .Params.summary }}
-          <p class="mb-3">{{ . }}</p>
-        {{ end }}
-
-        <div class="d-flex flex-wrap gap-2">
-          {{ with .Params.url_pdf }}<a class="btn btn-sm btn-primary" href="{{ . }}">PDF</a>{{ end }}
-          {{ with .Params.url_code }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Code</a>{{ end }}
-          {{ with .Params.url_dataset }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Dataset</a>{{ end }}
-          {{ with .Params.url_video }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}">Video</a>{{ end }}
-        </div>
+      <div class="mt-2">
+        {{ with .Params.url_pdf }}<a class="btn btn-sm btn-outline-primary me-2" href="{{ . }}">PDF</a>{{ end }}
+        {{ with .Params.url_code }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Code</a>{{ end }}
+        {{ with .Params.url_dataset }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Dataset</a>{{ end }}
+        {{ with .Params.url_video }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Video</a>{{ end }}
       </div>
-    </div>
+    </article>
   {{ end }}
-</div>
+</main>
 {{ end }}
