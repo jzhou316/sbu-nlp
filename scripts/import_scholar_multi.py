@@ -34,6 +34,94 @@ DRY_RUN   = os.environ.get("DRY_RUN", "0") == "1"
 SLEEP_BETWEEN_AUTHORS = float(os.environ.get("SLEEP_BETWEEN_AUTHORS", "2.0"))  # seconds
 # ------------------------------------------
 
+
+
+import requests
+from urllib.parse import urlparse, parse_qs, urlunparse
+
+# Accept generous timeouts so we don't hang CI
+_HTTP_TIMEOUT = 10
+_HTTP_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; ScholarFetcher/1.0; +https://example.org)"
+}
+
+def is_likely_pdf_url(url: str) -> bool:
+    """Heuristic: .pdf or known providers' PDF endpoints."""
+    if not url:
+        return False
+    u = url.lower()
+    if u.endswith(".pdf"):
+        return True
+    return any((
+        "openreview.net/pdf" in u,
+        "/doi/pdf" in u,                     # ACM DL, some publishers
+        "ieeexplore.ieee.org/stamp/stamp.jsp" in u,
+        "arxiv.org/pdf/" in u,
+        "aclanthology.org/" in u and u.rsplit("/", 1)[-1].endswith(".pdf"),
+    ))
+
+def rewrite_to_direct_pdf(url: str) -> str:
+    """Map common landing pages to direct PDF links."""
+    if not url:
+        return ""
+    try:
+        p = urlparse(url)
+        host = p.netloc.lower()
+
+        # arXiv: /abs/ -> /pdf/{id}.pdf
+        if "arxiv.org" in host:
+            if p.path.startswith("/abs/"):
+                paper_id = p.path.split("/abs/", 1)[1]
+                return f"https://arxiv.org/pdf/{paper_id}.pdf"
+            if p.path.startswith("/pdf/") and not p.path.endswith(".pdf"):
+                return url + ".pdf"
+
+        # OpenReview: forum?id=... -> pdf?id=...
+        if "openreview.net" in host:
+            q = parse_qs(p.query)
+            if p.path.startswith("/forum") and "id" in q:
+                return f"https://openreview.net/pdf?id={q['id'][0]}"
+            # already a /pdf?id=... is fine
+
+        # ACM DL: /doi/{doi} -> /doi/pdf/{doi}
+        if "dl.acm.org" in host and p.path.startswith("/doi/") and "/doi/pdf/" not in p.path:
+            return url.replace("/doi/", "/doi/pdf/")
+
+        # IEEE Xplore: /document/{id} -> /stamp/stamp.jsp?tp=&arnumber={id}
+        if "ieeexplore.ieee.org" in host and "/document/" in p.path:
+            doc_id = p.path.strip("/").split("/")[-1]
+            return f"https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber={doc_id}"
+
+        # ACL Anthology: ensure trailing .pdf
+        if "aclanthology.org" in host:
+            # page like /P24-1234/ -> /P24-1234.pdf
+            parts = p.path.strip("/").split("/")
+            if len(parts) == 1 and not parts[0].endswith(".pdf"):
+                return f"https://aclanthology.org/{parts[0]}.pdf"
+
+        # Springer/Elsevier/Wiley often need redirects; keep original
+        return url
+    except Exception:
+        return url
+
+def serves_pdf(url: str) -> bool:
+    """HEAD (then light GET if HEAD unhelpful) to see if it's a PDF."""
+    try:
+        r = requests.head(url, allow_redirects=True, timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
+        ctype = r.headers.get("Content-Type", "").lower()
+        if "application/pdf" in ctype:
+            return True
+    except Exception:
+        pass
+    # Some hosts don't honor HEAD properly
+    try:
+        r = requests.get(url, stream=True, allow_redirects=True, timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
+        ctype = r.headers.get("Content-Type", "").lower()
+        return "application/pdf" in ctype
+    except Exception:
+        return False
+
+
 def setup_scholar():
     """
     Optional: set up a proxy. Usually not needed locally.
@@ -119,15 +207,40 @@ def is_pdf_url(url: str) -> bool:
     return bool(url) and url.lower().endswith(".pdf")
 
 def pick_pdf_url(pub: Dict[str, Any]) -> str:
-    # eprint_url is often a direct PDF if present
-    pdf = pub.get("eprint_url") or ""
-    if is_pdf_url(pdf):
-        return pdf
-    # Sometimes pub_url points to a PDF
-    purl = pub.get("pub_url") or ""
-    if is_pdf_url(purl):
-        return purl
-    return ""  # leave blank if uncertain
+    """
+    Prefer a verified PDF link. Try eprint_url first, then pub_url.
+    1) Rewrite common hosts to direct PDF.
+    2) Verify by Content-Type if possible.
+    3) If verification fails but it still looks like a PDF endpoint, accept it.
+    """
+    candidates = []
+    for key in ("eprint_url", "pub_url"):
+        val = (pub.get(key) or "").strip()
+        if not val:
+            continue
+        val2 = rewrite_to_direct_pdf(val)
+        candidates.extend([val2, val]) if val2 != val else candidates.append(val)
+
+    # Dedup while preserving order
+    seen = set()
+    uniq = []
+    for u in candidates:
+        if u and u not in seen:
+            uniq.append(u)
+            seen.add(u)
+
+    # Try verified-first
+    for u in uniq:
+        if serves_pdf(u):
+            return u
+
+    # Fall back to heuristic "likely PDF" even if HEAD/GET didn't cooperate
+    for u in uniq:
+        if is_likely_pdf_url(u):
+            return u
+
+    # Last resort: no pdf; return empty and let Hugo show no PDF button
+    return ""
 
 def write_bundle(title: str, authors: List[str], year: int, pdf_url: str):
     """Write Hugo bundle with the exact front-matter structure you requested."""
@@ -208,6 +321,12 @@ def import_author_by_id(scholar_id: str, seen_titles: set):
 
         # pdf link if clearly a PDF
         pdf_url = pick_pdf_url(p)
+
+        if pdf_url:
+            print(f"  ✔ PDF: {pdf_url}")
+        else:
+            print(f"  ✖ No PDF for: {title}")
+
 
         write_bundle(title=title, authors=authors, year=yr, pdf_url=pdf_url)
         seen_titles.add(norm_title)
