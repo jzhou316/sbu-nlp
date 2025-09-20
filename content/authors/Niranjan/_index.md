@@ -19,6 +19,8 @@ role: Associate Professor
 # Group website
 website: https://www3.cs.stonybrook.edu/~niranjan/
 
+private: true        
+
 # Organizations/Affiliations
 organizations:
   - name: Stony Brook University
@@ -70,7 +72,6 @@ email: ''
 user_groups:
   - Faculty
 _build:
-  render: never
   list: never
   publishResources: true
 ---

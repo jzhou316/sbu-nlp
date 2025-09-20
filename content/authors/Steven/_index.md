@@ -71,7 +71,6 @@ email: ''
 user_groups:
   - Faculty
 _build:
-  render: never
   list: never
   publishResources: true
 ---
