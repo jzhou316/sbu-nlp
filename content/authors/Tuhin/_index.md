@@ -1,4 +1,8 @@
 
+_build:
+  render: never
+  list: never
+  publishResources: true
 ---
 # Display name
 title: Tuhin Chakrabarty

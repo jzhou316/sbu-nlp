@@ -74,6 +74,10 @@ highlight_name: false
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
   - Faculty
+_build:
+  render: never
+  list: never
+  publishResources: true
 ---
 
 Jiawei (Joe)Zhou is an assistant professor in data science (applied math and statistics \& computer science) at Stony Brook University. His research mainly lies in the areas of Natural Language Processing (NLP) and Machine Learning (ML) applications. He has worked on a wide range of core NLP tasks and methodologies such as sequence to sequence techniques for text generations and sequence to graph generations for semantic understanding. His recent work centers around broad language applications and generative AI, where language includes natural language but can also be considered as any sequential information such as code, serialized visual representations, embodied actions, etc. He is motivated to better understand and improve state-of-the-art deep learning models such as (Large) Language Models (LLMs) and multimodal models, on a variety of aspects such as efficiency, knowledge augmentation, memorization, factualness, security, fair evaluation, reasoning and planning.

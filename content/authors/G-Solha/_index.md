@@ -14,8 +14,6 @@ superuser: false
 # Role/position
 role: PhD Student
 
-# Personal website
-
 # Organizations/Affiliations
 organizations:
   - name: Stony Brook University
