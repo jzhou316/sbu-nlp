@@ -75,7 +75,6 @@ highlight_name: false
 user_groups:
   - Faculty
 _build:
-  list: never
   publishResources: true
 ---
 

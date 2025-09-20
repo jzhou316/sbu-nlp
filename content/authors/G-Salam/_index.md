@@ -60,6 +60,5 @@ email: ''
 user_groups:
   - PhD Students
 _build:
-  list: never
   publishResources: true
 ---
