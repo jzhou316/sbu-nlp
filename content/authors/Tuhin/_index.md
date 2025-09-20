@@ -1,6 +1,7 @@
 
 _build:
   publishResources: true
+private: true
 ---
 # Display name
 title: Tuhin Chakrabarty

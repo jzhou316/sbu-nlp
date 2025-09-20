@@ -58,4 +58,5 @@ user_groups:
   - PhD Students
 _build:
   publishResources: true
+private: true
 ---

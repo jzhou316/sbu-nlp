@@ -72,6 +72,7 @@ user_groups:
   - Faculty
 _build:
   publishResources: true
+private: true
 ---
 
 Niranjan Balasubramanian's research is motivated by the challenge of building systems that can extract, understand, and reason with information present in natural language texts. His research interests are in two broad areas: NLP and information retrieval. He has worked on different projects in areas like  Question Answering at a 4th Grade Level, Event Schema Generation from news stories, Machine Learning for Information Retrieval, Energy-efficient Mobile Search, and Automatic Wikipedia Pages.
