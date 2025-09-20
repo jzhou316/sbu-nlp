@@ -39,8 +39,45 @@ SLEEP_BETWEEN_AUTHORS = float(os.environ.get("SLEEP_BETWEEN_AUTHORS", "2.0"))  #
 import requests
 from urllib.parse import urlparse, parse_qs, urlunparse
 
+
+# Add near your other helpers
+_MONTH_ALIASES = {
+    "jan":1,"january":1,"feb":2,"february":2,"mar":3,"march":3,"apr":4,"april":4,
+    "may":5,"jun":6,"june":6,"jul":7,"july":7,"aug":8,"august":8,"sep":9,
+    "sept":9,"september":9,"oct":10,"october":10,"nov":11,"november":11,"dec":12,"december":12
+}
+
+def parse_month(m) -> int:
+    """Accepts 1..12, '03', 'Mar', 'March', returns 1..12 or 1 if unknown."""
+    if m is None:
+        return 1
+    if isinstance(m, int):
+        return m if 1 <= m <= 12 else 1
+    s = str(m).strip().lower()
+    if s.isdigit():
+        try:
+            v = int(s)
+            return v if 1 <= v <= 12 else 1
+        except:
+            return 1
+    return _MONTH_ALIASES.get(s, 1)
+
+def year_month_to_iso(year: int, month: int) -> str:
+    mm = max(1, min(12, month))
+    return f"{int(year):04d}-{mm:02d}-01T00:00:00Z"
+
+def pick_venue(bib: dict) -> str:
+    """Try common fields; Google Scholar usually provides 'venue'."""
+    for k in ("venue", "journal", "booktitle", "publisher"):
+        v = (bib.get(k) or "").strip()
+        if v:
+            return v
+    return ""
+
+
+
 # Accept generous timeouts so we don't hang CI
-_HTTP_TIMEOUT = 10
+_HTTP_TIMEOUT = 5
 _HTTP_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; ScholarFetcher/1.0; +https://example.org)"
 }
@@ -242,28 +279,33 @@ def pick_pdf_url(pub: Dict[str, Any]) -> str:
     # Last resort: no pdf; return empty and let Hugo show no PDF button
     return ""
 
-def write_bundle(title: str, authors: List[str], year: int, pdf_url: str):
-    """Write Hugo bundle with the exact front-matter structure you requested."""
+
+def write_bundle(title: str, authors: List[str], year: int, month: int,
+                 pdf_url: str, venue: str):
     fm = []
     fm.append("---")
-    # fm.append(f'title: "{title.replace(\'"\', r\'\\"\')}"')
     fm.append('title: "{}"'.format(title.replace('"', '\\"')))
     fm.append("authors:")
     for a in authors:
         fm.append('  - "{}"'.format(a.replace('"', '\\"')))
-        # fm.append(f'  - "{a.replace(\'"\', r\'\\"\')}"')
-    date_iso = year_to_iso(year)
+
+    date_iso = year_month_to_iso(year, month)
     fm.append(f"date: '{date_iso}'")
     fm.append(f"publishDate: '{date_iso}'")
     fm.append("draft: false")
+
+    # Where published
+    fm.append('publication: "{}"'.format(venue.replace('"', '\\"')))
+
+    # (optional) you can also set publication_types here if you want
     # fm.append('publication_types: ["paper-conference"]')
-    fm.append('publication: ""')
+
     fm.append(f'url_pdf: "{pdf_url}"' if pdf_url else 'url_pdf: ""')
     fm.append("image:")
     fm.append("  preview_only: true")
     fm.append("---\n")
 
-    slug = slugify(f"{title[:80]}-{year}")
+    slug = slugify(f"{title[:80]}-{year}-{month:02d}")
     dst_dir = OUT_DIR / slug
     dst_dir.mkdir(parents=True, exist_ok=True)
     dst = dst_dir / "index.md"
@@ -275,16 +317,16 @@ def write_bundle(title: str, authors: List[str], year: int, pdf_url: str):
         dst.write_text(content, encoding="utf-8")
         print(f"Wrote {dst}")
 
+
 def import_author_by_id(scholar_id: str, seen_titles: set):
-    """
-    Fetch publications for a single author by Scholar ID and write bundles for YEAR_FROM..now.
-    """
     print(f"Fetching author: {scholar_id}")
-    # scholarly.search_author_id returns an author object by ID
     author = scholarly.search_author_id(scholar_id)
     author = scholarly.fill(author, sections=["basics", "publications"])
     pubs = author.get("publications", []) or []
     cur_year = datetime.utcnow().year
+
+    # collect first
+    rows = []
 
     for p in pubs:
         try:
@@ -298,12 +340,11 @@ def import_author_by_id(scholar_id: str, seen_titles: set):
         if not title:
             continue
 
-        # de-dupe by normalized title across all PIs we process
         norm_title = re.sub(r"\s+", " ", title.lower())
         if norm_title in seen_titles:
             continue
 
-        # year
+        # year filter
         yr = None
         for k in ("pub_year", "year"):
             v = bib.get(k)
@@ -316,20 +357,39 @@ def import_author_by_id(scholar_id: str, seen_titles: set):
         if not yr or yr < YEAR_FROM or yr > cur_year:
             continue
 
-        # authors
-        authors = normalize_authors(bib.get("author"))
+        # month (optional in Scholar)
+        mn = parse_month(bib.get("pub_month") or bib.get("month"))
 
-        # pdf link if clearly a PDF
+        authors = normalize_authors(bib.get("author"))
+        venue = pick_venue(bib)
+
         pdf_url = pick_pdf_url(p)
 
-        if pdf_url:
-            print(f"  ✔ PDF: {pdf_url}")
-        else:
-            print(f"  ✖ No PDF for: {title}")
+        rows.append({
+            "title": title,
+            "authors": authors,
+            "year": yr,
+            "month": mn,
+            "venue": venue,
+            "pdf_url": pdf_url,
+            "norm_title": norm_title
+        })
 
+    # sort by (year, month) DESC so newest first
+    rows.sort(key=lambda r: (r["year"], r["month"]), reverse=True)
 
-        write_bundle(title=title, authors=authors, year=yr, pdf_url=pdf_url)
-        seen_titles.add(norm_title)
+    # write after sorting
+    for r in rows:
+        write_bundle(
+            title=r["title"],
+            authors=r["authors"],
+            year=r["year"],
+            month=r["month"],
+            pdf_url=r["pdf_url"],
+            venue=r["venue"],
+        )
+        seen_titles.add(r["norm_title"])
+
 
 def main():
     setup_scholar()
