@@ -1,7 +1,7 @@
 
 ---
 # Display name
-title: Tuhin Chakrabarty (incoming fall 2025)
+title: Tuhin Chakrabarty
 
 # Full name (for SEO)
 first_name: Tuhin
