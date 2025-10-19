@@ -36,6 +36,29 @@ _HTTP_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; ScholarFetcher/1.0; +https://example.org)"
 }
 
+
+import unicodedata, html
+
+_TAG_RE = re.compile(r"<[^>]+>")
+
+def sanitize_text(s: str) -> str:
+    if not s:
+        return s
+    # 1) Remove any HTML tags Scholar might leak
+    s = _TAG_RE.sub("", s)
+    # 2) Unescape HTML entities (&amp; → &)
+    s = html.unescape(s)
+    # 3) Normalize Unicode: fold math/compat chars to plain ASCII letters
+    s = unicodedata.normalize("NFKC", s)
+    # 4) Drop zero-width & odd control chars
+    s = s.replace("\u200b", "").replace("\ufeff", "").replace("\u200c", "").replace("\u200d", "")
+    # 5) Optional: strip residual combining marks that sometimes encircle/overlay letters
+    s = "".join(ch for ch in s if unicodedata.category(ch) != "Mn")
+    # 6) Collapse whitespace
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
 def is_likely_pdf_url(url: str) -> bool:
     if not url:
         return False
@@ -321,7 +344,8 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
             continue
 
         bib = p.get("bib", {}) or {}
-        title = (bib.get("title") or "").strip()
+        title = sanitize_text(raw_title)
+        # title = (bib.get("title") or "").strip()
         if not title:
             continue
 
