@@ -8,7 +8,7 @@ authors:
 date: '2024-01-01T00:00:00Z'
 publishDate: '2024-01-01T00:00:00Z'
 draft: false
-publication: ""
+publication: "arXiv"
 url_pdf: "https://arxiv.org/pdf/2402.09934.pdf"
 image:
   preview_only: true

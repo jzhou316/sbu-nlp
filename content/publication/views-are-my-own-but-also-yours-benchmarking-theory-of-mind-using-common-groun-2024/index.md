@@ -11,7 +11,7 @@ authors:
 date: '2024-01-01T00:00:00Z'
 publishDate: '2024-01-01T00:00:00Z'
 draft: false
-publication: ""
+publication: "arXiv preprint arXiv:2403.02451"
 url_pdf: "https://arxiv.org/pdf/2403.02451.pdf"
 image:
   preview_only: true

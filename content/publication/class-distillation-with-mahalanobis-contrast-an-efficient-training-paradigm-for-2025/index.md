@@ -7,7 +7,7 @@ authors:
 date: '2025-01-01T00:00:00Z'
 publishDate: '2025-01-01T00:00:00Z'
 draft: false
-publication: ""
+publication: "arXiv preprint arXiv:2505.11829"
 url_pdf: "https://arxiv.org/pdf/2505.11829.pdf"
 image:
   preview_only: true

@@ -6,7 +6,7 @@ authors:
 date: '2025-01-01T00:00:00Z'
 publishDate: '2025-01-01T00:00:00Z'
 draft: false
-publication: ""
+publication: "Proceedings of the Annual Meeting of the Cognitive Science Society"
 url_pdf: ""
 image:
   preview_only: true

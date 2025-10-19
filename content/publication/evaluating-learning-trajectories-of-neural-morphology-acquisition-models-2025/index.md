@@ -1,8 +1,10 @@
 ---
-title: "Some innate characteristics of neural network models of morphological inflection"
+title: "Evaluating learning trajectories of neural morphology acquisition models"
 authors:
-  - "Sarah Payne"
   - "Jordan Kodner"
+  - "Salam Khalifa"
+  - "Sarah Payne"
+  - "Zoey Liu"
 date: '2025-01-01T00:00:00Z'
 publishDate: '2025-01-01T00:00:00Z'
 draft: false
