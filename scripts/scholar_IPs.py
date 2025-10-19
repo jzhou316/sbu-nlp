@@ -221,24 +221,76 @@ def pick_pdf_url(pub: Dict[str, Any]) -> str:
 
 # ---------- NEW: venue/arXiv inference + duplicate merging helpers ----------
 
-def infer_publication_string(bib: Dict[str, Any], pub: Dict[str, Any]) -> str:
+# def infer_publication_string(bib: Dict[str, Any], pub: Dict[str, Any]) -> str:
+#     """
+#     Prefer explicit venue/journal/booktitle. If none and looks like arXiv, return 'arXiv'.
+#     Else ''.
+#     """
+#     for k in ("journal", "venue", "booktitle"):
+#         v = (bib.get(k) or "").strip()
+#         if v:
+#             return v
+#     # Some entries mark arXiv as journal or in URL
+#     j = (bib.get("journal") or "").lower()
+#     if "arxiv" in j:
+#         return "arXiv"
+#     for key in ("eprint_url", "pub_url", "url"):
+#         u = (pub.get(key) or "").lower()
+#         if "arxiv.org" in u:
+#             return "arXiv"
+#     return ""
+
+
+# def infer_publication_string(bib: Dict[str, Any], pub: Dict[str, Any]) -> str:
+#     """
+#     Prefer explicit venue/journal/booktitle.
+#     If none found and looks like arXiv, return just 'arXiv' (no ID).
+#     """
+#     for k in ("journal", "venue", "booktitle"):
+#         v = (bib.get(k) or "").strip()
+#         if v:
+#             return v
+
+#     # Detect arXiv in either the journal field or URL, return clean 'arXiv'
+#     j = (bib.get("journal") or "").lower()
+#     if "arxiv" in j:
+#         return "arXiv"
+#     for key in ("eprint_url", "pub_url", "url"):
+#         u = (pub.get(key) or "").lower()
+#         if "arxiv.org" in u:
+#             return "arXiv"
+#     return ""
+
+
+# replace your infer_publication_string with this
+def infer_publication_string(bib: Dict[str, Any], pub: Dict[str, Any], pdf_url: str = "") -> str:
     """
-    Prefer explicit venue/journal/booktitle. If none and looks like arXiv, return 'arXiv'.
-    Else ''.
+    Prefer explicit venue/journal/booktitle (but ignore vague strings).
+    If none, and any field or the final pdf_url points to arXiv, return plain 'arXiv'.
     """
+    # 1) real venues first
+    bad = re.compile(r"(preprint|under review|submitted|manuscript|tech(\s|-)?report)", re.I)
     for k in ("journal", "venue", "booktitle"):
         v = (bib.get(k) or "").strip()
-        if v:
+        if v and not bad.search(v):
             return v
-    # Some entries mark arXiv as journal or in URL
-    j = (bib.get("journal") or "").lower()
-    if "arxiv" in j:
+
+    # 2) arXiv detection from any hint
+    hay = " ".join([
+        (bib.get("journal") or ""),
+        (bib.get("eprint") or ""),
+        (pub.get("eprint_url") or ""),
+        (pub.get("pub_url") or ""),
+        (pub.get("url") or ""),
+        pdf_url or "",
+    ]).lower()
+    if "arxiv.org" in hay or "arxiv" in hay:
         return "arXiv"
-    for key in ("eprint_url", "pub_url", "url"):
-        u = (pub.get(key) or "").lower()
-        if "arxiv.org" in u:
-            return "arXiv"
+
     return ""
+
+
+
 
 def normalize_title_key(title: str) -> str:
     """
@@ -344,6 +396,7 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
             continue
 
         bib = p.get("bib", {}) or {}
+        raw_title = (bib.get("title") or "").strip()
         title = sanitize_text(raw_title)
         # title = (bib.get("title") or "").strip()
         if not title:
@@ -367,12 +420,14 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
 
         authors = normalize_authors(bib.get("author"))
         pdf_url = pick_pdf_url(p)
+
+        publication = infer_publication_string(bib, p, pdf_url)  # pass pdf_url here
         if pdf_url:
             print(f"  ✔ PDF: {pdf_url}")
         else:
             print(f"  ✖ No PDF for: {title}")
 
-        publication = infer_publication_string(bib, p)  # NEW
+        # publication = infer_publication_string(bib, p)  # NEW
 
         out.append(PubRecord(
             title=title,

@@ -1,5 +1,5 @@
 ---
-title: ": A Dataset for ynamic nformation nd ental modeling f umeric iscussions"
+title: "DIAMONDs: A Dataset for Dynamic Information And Mental modeling Of Numeric Discussions"
 authors:
   - "Sayontan Ghosh"
   - "Mahnaz Koupaee"
