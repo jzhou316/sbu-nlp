@@ -18,14 +18,19 @@ from urllib.parse import urlparse, parse_qs
 from datetime import datetime
 from typing import Iterable, List, Dict, Any, Optional, Tuple
 from slugify import slugify
-
+import random
 from scholarly import scholarly, ProxyGenerator
+# from scholarly._proxy_generator import MaxTriesExceededException  # optional
 
 # ----------------- CONFIG -----------------
-YEAR_FROM = int(os.environ.get("YEAR_FROM", "2024"))
+YEAR_FROM = int(os.environ.get("YEAR_FROM", "2020"))
 OUT_DIR   = pathlib.Path(os.environ.get("OUT_DIR", "/home/huajzhang/pub"))
 DRY_RUN   = os.environ.get("DRY_RUN", "0") == "1"
 SLEEP_BETWEEN_AUTHORS = float(os.environ.get("SLEEP_BETWEEN_AUTHORS", "5.0"))  # seconds
+
+CACHE_DIR = pathlib.Path(os.environ.get("CACHE_DIR", "/home/huajzhang/pub_cache"))
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
 # ------------------------------------------
 
 import requests
@@ -40,6 +45,132 @@ _HTTP_HEADERS = {
 import unicodedata, html
 
 _TAG_RE = re.compile(r"<[^>]+>")
+
+
+_PDF_OK = {}  # url -> bool
+
+_BIBTEX_MONTH_MAP = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+def serves_pdf_cached(url: str) -> bool:
+    if url in _PDF_OK:
+        return _PDF_OK[url]
+    ok = serves_pdf(url)
+    _PDF_OK[url] = ok
+    return ok
+
+
+def cache_path_for_author(scholar_id: str) -> pathlib.Path:
+    return CACHE_DIR / f"scholar_{scholar_id}.jsonl"
+
+def load_author_cache(scholar_id: str) -> tuple[list["PubRecord"], set[str]]:
+    """
+    Return (records, title_keys).
+    """
+    path = cache_path_for_author(scholar_id)
+    recs: list[PubRecord] = []
+    keys: set[str] = set()
+    if not path.exists():
+        return recs, keys
+
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+            title = obj.get("title") or ""
+            if not title:
+                continue
+            rec = PubRecord(
+                title=title,
+                authors=obj.get("authors") or [],
+                year=int(obj.get("year")),
+                month=int(obj.get("month", 1)),
+                day=int(obj.get("day", 1)),
+                pdf_url=obj.get("pdf_url") or "",
+                publication=obj.get("publication") or "",
+                bib=obj.get("bib") or {},   # optional, can be {}
+            )
+            recs.append(rec)
+            keys.add(normalize_title_key(title))
+        except Exception:
+            # Ignore malformed line; JSONL allows partial corruption without losing whole file
+            continue
+    return recs, keys
+
+def append_author_cache(scholar_id: str, rec: "PubRecord"):
+    path = cache_path_for_author(scholar_id)
+    obj = {
+        "title": rec.title,
+        "authors": rec.authors,
+        "year": rec.year,
+        "month": rec.month,
+        "day": rec.day,
+        "pdf_url": rec.pdf_url,
+        "publication": rec.publication,
+        # keep bib optional; can help later debugging/dedup
+        "bib": rec.bib,
+    }
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+def parse_bibtex_month(bibtex: str) -> int | None:
+    if not bibtex:
+        return None
+    m = re.search(r"\bmonth\s*=\s*[{\"']?([A-Za-z]+|\d{1,2})", bibtex, re.IGNORECASE)
+    if not m:
+        return None
+    val = m.group(1).strip().lower()
+    if val.isdigit():
+        mm = int(val)
+        return mm if 1 <= mm <= 12 else None
+    return _BIBTEX_MONTH_MAP.get(val)
+
+def resolve_pub_date_ymd(*, year: int, pub_obj) -> tuple[int, int, int]:
+    """
+    Returns (Y, M, D). D fixed to 1 for sorting.
+    Tries bibtex month; falls back to Jan.
+    """
+    try:
+        bibtex = scholarly.bibtex(pub_obj)  # per scholarly docs :contentReference[oaicite:11]{index=11}
+        mm = parse_bibtex_month(bibtex)
+        if mm:
+            return (year, mm, 1)
+    except Exception as e:
+        # bibtex export can fail if blocked or missing source
+        pass
+    return (year, 1, 1)
+
+def ymd_to_hugo_iso(y: int, m: int, d: int) -> str:
+    return f"{y:04d}-{m:02d}-{d:02d}T00:00:00Z"
+
+def fill_with_backoff(obj, *, max_tries=6, base=2.0, jitter=0.5):
+    """
+    Exponential backoff for scholarly.fill().
+    Keeps behavior polite: fewer retries, longer waits, random jitter.
+    """
+    for t in range(max_tries):
+        try:
+            return scholarly.fill(obj)
+        except Exception as e:
+            
+            sleep_s = base * (1.5 ** t) + random.random() * jitter
+            print(f"  warn: fill failed ({type(e).__name__}): {e} | sleeping {sleep_s:.1f}s")
+            time.sleep(sleep_s)
+    raise RuntimeError("fill_with_backoff: exceeded retries")
 
 def sanitize_text(s: str) -> str:
     if not s:
@@ -212,7 +343,8 @@ def pick_pdf_url(pub: Dict[str, Any]) -> str:
             seen.add(u)
 
     for u in uniq:
-        if serves_pdf(u):
+        if serves_pdf_cached(u):
+        # if serves_pdf(u):
             return u
     for u in uniq:
         if is_likely_pdf_url(u):
@@ -327,16 +459,12 @@ def info_richness_score(bib: Dict[str, Any], pdf_url: str, publication: str) -> 
 
 # Structure we keep while merging
 class PubRecord:
-    def __init__(self,
-                 title: str,
-                 authors: List[str],
-                 year: int,
-                 pdf_url: str,
-                 publication: str,
-                 bib: Dict[str, Any]):
+    def __init__(self, title, authors, year, month, day, pdf_url, publication, bib):
         self.title = title
         self.authors = authors
         self.year = year
+        self.month = month
+        self.day = day
         self.pdf_url = pdf_url
         self.publication = publication
         self.bib = bib
@@ -346,15 +474,50 @@ class PubRecord:
 
 # ---------------------------------------------------------------------------
 
-def write_bundle(title: str, authors: List[str], year: int, pdf_url: str, publication: str):
-    """Write Hugo bundle; same structure as yours, now with publication filled."""
+# def write_bundle(title: str, authors: List[str], year: int, pdf_url: str, publication: str):
+# def write_bundle(title: str, authors: List[str], y: int, m: int, d: int, pdf_url: str, publication: str):
+
+#     date_iso = ymd_to_hugo_iso(y, m, d)
+#     """Write Hugo bundle; same structure as yours, now with publication filled."""
+#     fm = []
+#     fm.append("---")
+#     fm.append('title: "{}"'.format(title.replace('"', '\\"')))
+#     fm.append("authors:")
+#     for a in authors:
+#         fm.append('  - "{}"'.format(a.replace('"', '\\"')))
+#     date_iso = year_to_iso(year)
+#     fm.append(f"date: '{date_iso}'")
+#     fm.append(f"publishDate: '{date_iso}'")
+#     fm.append("draft: false")
+#     fm.append('publication: "{}"'.format(publication.replace('"', '\\"') if publication else ""))
+#     fm.append(f'url_pdf: "{pdf_url}"' if pdf_url else 'url_pdf: ""')
+#     fm.append("image:")
+#     fm.append("  preview_only: true")
+#     fm.append("---\n")
+
+#     slug = slugify(f"{title[:80]}-{year}")
+#     dst_dir = OUT_DIR / slug
+#     dst_dir.mkdir(parents=True, exist_ok=True)
+#     dst = dst_dir / "index.md"
+#     content = "\n".join(fm)
+
+#     if DRY_RUN:
+#         print(f"[DRY_RUN] Would write {dst}:\n{content}")
+#     else:
+#         dst.write_text(content, encoding="utf-8")
+#         print(f"Wrote {dst}")
+
+
+def write_bundle(title: str, authors: List[str], y: int, m: int, d: int, pdf_url: str, publication: str):
+    """Write Hugo bundle; now date supports month (fallback Jan)."""
+    date_iso = ymd_to_hugo_iso(y, m, d)
+
     fm = []
     fm.append("---")
     fm.append('title: "{}"'.format(title.replace('"', '\\"')))
     fm.append("authors:")
     for a in authors:
         fm.append('  - "{}"'.format(a.replace('"', '\\"')))
-    date_iso = year_to_iso(year)
     fm.append(f"date: '{date_iso}'")
     fm.append(f"publishDate: '{date_iso}'")
     fm.append("draft: false")
@@ -364,7 +527,7 @@ def write_bundle(title: str, authors: List[str], year: int, pdf_url: str, public
     fm.append("  preview_only: true")
     fm.append("---\n")
 
-    slug = slugify(f"{title[:80]}-{year}")
+    slug = slugify(f"{title[:80]}-{y}")
     dst_dir = OUT_DIR / slug
     dst_dir.mkdir(parents=True, exist_ok=True)
     dst = dst_dir / "index.md"
@@ -376,11 +539,16 @@ def write_bundle(title: str, authors: List[str], year: int, pdf_url: str, public
         dst.write_text(content, encoding="utf-8")
         print(f"Wrote {dst}")
 
+
 def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRecord]:
     """
     Fetch publications for a single author and return PubRecord list (no writing here).
     """
     out: List[PubRecord] = []
+    cached_recs, cached_keys = load_author_cache(scholar_id)
+    if cached_recs:
+        print(f"Loaded {len(cached_recs)} cached pubs for {scholar_id}")
+        out.extend(cached_recs)
 
     print(f"Fetching author: {scholar_id}")
     author = scholarly.search_author_id(scholar_id)
@@ -389,8 +557,19 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
     cur_year = datetime.utcnow().year
 
     for p in pubs:
+        bib0 = p.get("bib", {}) or {}
+        raw_title0 = (bib0.get("title") or "").strip()
+        title0 = sanitize_text(raw_title0)
+        if title0:
+            key0 = normalize_title_key(title0)
+            if key0 in cached_keys:
+                # already cached, skip all network
+                continue
+
         try:
-            p = scholarly.fill(p)
+            # p = scholarly.fill(p)
+            p = fill_with_backoff(p)
+            time.sleep(0.8 + random.random() * 0.6)  # small per-publication jitter
         except Exception as e:
             print(f"  warn: failed to fill a pub for {scholar_id}: {e}")
             continue
@@ -418,6 +597,8 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
         if not yr or yr < YEAR_FROM or yr > cur_year:
             continue
 
+        y, m, d = resolve_pub_date_ymd(year=yr, pub_obj=p)
+
         authors = normalize_authors(bib.get("author"))
         pdf_url = pick_pdf_url(p)
 
@@ -429,14 +610,18 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
 
         # publication = infer_publication_string(bib, p)  # NEW
 
-        out.append(PubRecord(
-            title=title,
-            authors=authors,
-            year=yr,
-            pdf_url=pdf_url,
-            publication=publication,
-            bib=bib
-        ))
+
+        rec = PubRecord(
+            title=title, authors=authors,
+            year=yr, month=m, day=d,
+            pdf_url=pdf_url, publication=publication, bib=bib
+        )
+        out.append(rec)
+
+        # persist immediately so we can resume if blocked mid-run
+        append_author_cache(scholar_id, rec)
+        cached_keys.add(normalize_title_key(rec.title))
+
 
     return out
 
@@ -494,12 +679,22 @@ def main():
     # Merge duplicates / substrings by information richness  ### NEW
     merged = merge_pub_lists(all_records)
 
-    # Finally, write bundles
+    # # Finally, write bundles
+    # for rec in merged:
+    #     write_bundle(
+    #         title=rec.title,
+    #         authors=rec.authors,
+    #         year=rec.year,
+    #         pdf_url=rec.pdf_url,
+    #         publication=rec.publication
+    #     )
     for rec in merged:
         write_bundle(
             title=rec.title,
             authors=rec.authors,
-            year=rec.year,
+            y=rec.year,
+            m=rec.month,
+            d=rec.day,
             pdf_url=rec.pdf_url,
             publication=rec.publication
         )
