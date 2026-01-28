@@ -16,6 +16,34 @@ def yaml_sq(s: str) -> str:
     # YAML single-quoted string: escape single quote by doubling it
     return "'" + s.replace("'", "''") + "'"
 
+def venue_with_year(e: Dict[str, str]) -> str:
+    year = e.get("year", "").strip()
+    yr2 = year[-2:] if len(year) == 4 else ""
+    bt = e.get("booktitle", "")
+
+    # Try to pull acronym from "{ACL} 2025"
+    m = re.search(r"\{([A-Za-z0-9\-]+)\}\s*(\d{4})", bt)
+    if m:
+        acr = m.group(1)
+        y = m.group(2)
+        return f"{acr}{y[-2:]}"   # ACL25
+
+    # If no acronym in braces, fallback to first chunk of booktitle + year
+    if bt and year:
+        return f"{bt.split(',')[0].strip()} {year}"
+
+    # Journal fallback
+    j = e.get("journal", "")
+    if j and j.lower() != "corr" and year:
+        return f"{j} {year}"
+
+    return venue_short(e)
+
+
+def strip_bib_braces(s: str) -> str:
+    # DBLP often uses {LLM} to preserve capitalization
+    return re.sub(r"[{}]", "", s or "")
+
 # ----------------------------
 # BibTeX parsing (no deps)
 # ----------------------------
@@ -395,12 +423,16 @@ def main():
         if arx and not is_non_arxiv_pub(e):
             publication = f"arXiv:{arx}"
         else:
-            publication = venue_short(e)
+            publication = venue_with_year(e)
+            # publication = venue_short(e)
 
         date_iso = extract_date_iso(e, arx)
         authors = split_authors(e.get("author", ""))
         if not authors:
             continue  # (1) no author => ignore
+
+        title = strip_bib_braces((e.get("title") or "").strip())
+        authors = [strip_bib_braces(a) for a in split_authors(e.get("author", ""))]
 
         url_pdf = pick_pdf_url(e, arx)
 
