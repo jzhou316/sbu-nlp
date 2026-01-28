@@ -12,6 +12,9 @@ MONTHS = {
     "May": 5, "June": 6, "July": 7, "August": 8,
     "September": 9, "October": 10, "November": 11, "December": 12
 }
+def yaml_sq(s: str) -> str:
+    # YAML single-quoted string: escape single quote by doubling it
+    return "'" + s.replace("'", "''") + "'"
 
 # ----------------------------
 # BibTeX parsing (no deps)
@@ -331,30 +334,27 @@ def slugify(title: str, year: str, max_len: int = 80) -> str:
         s = "-".join(out) if out else s[:max_len].rstrip("-")
     return f"{s}-{year}"
 
-def to_index_md(
-    title: str,
-    authors: List[str],
-    date_iso: str,
-    publication: str,
-    url_pdf: Optional[str],
-) -> str:
-    lines: List[str] = []
+
+def to_index_md(title, authors, date_iso, publication, url_pdf):
+    lines = []
     lines.append("---")
-    lines.append(f'title: "{title}"')
+    lines.append(f"title: {yaml_sq(title)}")
     lines.append("authors:")
     for a in authors:
-        lines.append(f'  - "{a}"')
-    lines.append(f"date: '{date_iso}'")
-    lines.append(f"publishDate: '{date_iso}'")
+        lines.append(f"  - {yaml_sq(a)}")
+    lines.append(f"date: {yaml_sq(date_iso)}")
+    lines.append(f"publishDate: {yaml_sq(date_iso)}")
     lines.append("draft: false")
-    lines.append(f'publication: "{publication}"')
+    lines.append(f"publication: {yaml_sq(publication)}")
     if url_pdf:
-        lines.append(f'url_pdf: "{url_pdf}"')
+        lines.append(f"url_pdf: {yaml_sq(url_pdf)}")
     lines.append("image:")
     lines.append("  preview_only: true")
     lines.append("---")
     lines.append("")
     return "\n".join(lines)
+
+
 
 
 def main():
