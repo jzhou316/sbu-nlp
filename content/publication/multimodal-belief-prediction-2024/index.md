@@ -1,14 +1,14 @@
 ---
-title: "Multimodal belief prediction"
+title: "Multimodal Belief Prediction"
 authors:
   - "John Murzaku"
   - "Adil Soubki"
   - "Owen Rambow"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+date: '2024-09-01T00:00:00Z'
+publishDate: '2024-09-01T00:00:00Z'
 draft: false
-publication: "arXiv preprint arXiv:2406.07466"
-url_pdf: "https://arxiv.org/pdf/2406.07466.pdf"
+publication: "25th Annual Conference of the International Speech Communica"
+url_pdf: "https://doi.org/10.21437/INTERSPEECH.2024-2103"
 image:
   preview_only: true
 ---

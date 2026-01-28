@@ -1,15 +1,15 @@
 ---
-title: "Picking up where the linguist left off: Mapping morphology to phonology through learning the residuals"
+title: "Picking Up Where the Linguist Left Off: Mapping Morphology to Phonology through Learning the Residuals"
 authors:
   - "Salam Khalifa"
   - "Abdelrahim Qaddoumi"
   - "Ellen Broselow"
   - "Owen Rambow"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+date: '2024-08-16T00:00:00Z'
+publishDate: '2024-08-16T00:00:00Z'
 draft: false
-publication: ""
-url_pdf: "https://aclanthology.org/2024.arabicnlp-1.22.pdf"
+publication: "Proceedings of The Second Arabic Natural Language Processing"
+url_pdf: "https://doi.org/10.18653/V1/2024.ARABICNLP-1.22"
 image:
   preview_only: true
 ---

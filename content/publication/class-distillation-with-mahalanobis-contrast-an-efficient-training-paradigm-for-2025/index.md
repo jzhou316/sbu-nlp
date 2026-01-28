@@ -4,11 +4,11 @@ authors:
   - "Chenlu Wang"
   - "Weimin Lyu"
   - "Ritwik Banerjee"
-date: '2025-01-01T00:00:00Z'
-publishDate: '2025-01-01T00:00:00Z'
+date: '2025-07-27T00:00:00Z'
+publishDate: '2025-07-27T00:00:00Z'
 draft: false
-publication: "arXiv preprint arXiv:2505.11829"
-url_pdf: "https://arxiv.org/pdf/2505.11829.pdf"
+publication: "ACL"
+url_pdf: "https://aclanthology.org/2025.acl-long.1424/"
 image:
   preview_only: true
 ---

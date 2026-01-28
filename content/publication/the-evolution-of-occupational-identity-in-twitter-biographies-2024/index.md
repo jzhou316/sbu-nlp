@@ -1,15 +1,15 @@
 ---
-title: "The evolution of occupational identity in twitter biographies"
+title: "The Evolution of Occupational Identity in Twitter Biographies"
 authors:
   - "Xingzhi Guo"
   - "Dakota Handzlik"
-  - "Jason J Jones"
-  - "Steven S Skiena"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+  - "Jason Jeffrey Jones"
+  - "Steven S. Skiena"
+date: '2024-06-03T00:00:00Z'
+publishDate: '2024-06-03T00:00:00Z'
 draft: false
-publication: "Proceedings of the International AAAI Conference on Web and Social Media"
-url_pdf: ""
+publication: "ICWSM"
+url_pdf: "https://doi.org/10.1609/ICWSM.V18I1.31330"
 image:
   preview_only: true
 ---

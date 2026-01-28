@@ -3,13 +3,13 @@ title: "Comparing Pre-trained Human Language Models: Is it Better with Human Con
 authors:
   - "Nikita Soni"
   - "Niranjan Balasubramanian"
-  - "H Andrew Schwartz"
+  - "H. Andrew Schwartz"
   - "Dirk Hovy"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+date: '2024-08-15T00:00:00Z'
+publishDate: '2024-08-15T00:00:00Z'
 draft: false
-publication: ""
-url_pdf: "https://arxiv.org/pdf/2401.12492.pdf"
+publication: "WASSA"
+url_pdf: "https://doi.org/10.18653/V1/2024.WASSA-1.26"
 image:
   preview_only: true
 ---

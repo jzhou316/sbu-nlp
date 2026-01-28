@@ -5,11 +5,11 @@ authors:
   - "Yishuang Liu"
   - "Chenlu Wang"
   - "Ritwik Banerjee"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+date: '2024-11-01T00:00:00Z'
+publishDate: '2024-11-01T00:00:00Z'
 draft: false
-publication: ""
-url_pdf: ""
+publication: "NLPCC"
+url_pdf: "https://doi.org/10.1007/978-981-97-9440-9\_14"
 image:
   preview_only: true
 ---

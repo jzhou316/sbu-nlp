@@ -578,7 +578,8 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
     if not author:
         print(f"  warn: no author found for {scholar_id} (invalid ID or blocked)")
         return out
-    author = scholarly.fill(author, sections=["basics", "publications"])
+    author = fill_with_backoff(author)
+    # author = scholarly.fill(author, sections=["basics", "publications"])
     pubs = author.get("publications", []) or []
     cur_year = datetime.utcnow().year
 

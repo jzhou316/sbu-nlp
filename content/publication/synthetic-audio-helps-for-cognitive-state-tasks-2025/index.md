@@ -1,15 +1,15 @@
 ---
-title: "Synthetic audio helps for cognitive state tasks"
+title: "Synthetic Audio Helps for Cognitive State Tasks"
 authors:
   - "Adil Soubki"
   - "John Murzaku"
   - "Peter Zeng"
   - "Owen Rambow"
-date: '2025-01-01T00:00:00Z'
-publishDate: '2025-01-01T00:00:00Z'
+date: '2025-04-29T00:00:00Z'
+publishDate: '2025-04-29T00:00:00Z'
 draft: false
-publication: "arXiv preprint arXiv:2502.06922"
-url_pdf: "https://arxiv.org/pdf/2502.06922.pdf"
+publication: "NAACL"
+url_pdf: "https://doi.org/10.18653/V1/2025.FINDINGS-NAACL.92"
 image:
   preview_only: true
 ---

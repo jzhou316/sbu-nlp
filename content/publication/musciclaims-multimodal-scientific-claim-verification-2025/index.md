@@ -7,10 +7,10 @@ authors:
   - "Apoorva Kashi"
   - "Mahnaz Koupaee"
   - "Niranjan Balasubramanian"
-date: '2025-01-01T00:00:00Z'
-publishDate: '2025-01-01T00:00:00Z'
+date: '2025-06-01T00:00:00Z'
+publishDate: '2025-06-01T00:00:00Z'
 draft: false
-publication: ""
+publication: "arXiv:2506.04585"
 url_pdf: "https://arxiv.org/pdf/2506.04585.pdf"
 image:
   preview_only: true

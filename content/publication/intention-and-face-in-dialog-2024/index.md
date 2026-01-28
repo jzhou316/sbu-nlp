@@ -1,13 +1,13 @@
 ---
-title: "Intention and face in dialog"
+title: "Intention and Face in Dialog"
 authors:
   - "Adil Soubki"
   - "Owen Rambow"
 date: '2024-01-01T00:00:00Z'
 publishDate: '2024-01-01T00:00:00Z'
 draft: false
-publication: "arXiv preprint arXiv:2406.04109"
-url_pdf: "https://arxiv.org/pdf/2406.04109.pdf"
+publication: "Proceedings of the 2024 Joint International Conference on Co"
+url_pdf: "https://aclanthology.org/2024.lrec-main.801"
 image:
   preview_only: true
 ---

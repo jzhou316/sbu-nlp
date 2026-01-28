@@ -1,16 +1,16 @@
 ---
-title: "Training LLMs to recognize hedges in dialogues about roadrunner cartoons"
+title: "Training LLMs to Recognize Hedges in Dialogues about Roadrunner Cartoons"
 authors:
-  - "Amie Paige"
+  - "Amie J. Paige"
   - "Adil Soubki"
   - "John Murzaku"
   - "Owen Rambow"
-  - "Susan E Brennan"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+  - "Susan E. Brennan"
+date: '2024-09-18T00:00:00Z'
+publishDate: '2024-09-18T00:00:00Z'
 draft: false
-publication: ""
-url_pdf: "https://aclanthology.org/2024.sigdial-1.18.pdf"
+publication: "SIGDIAL"
+url_pdf: "https://doi.org/10.18653/V1/2024.SIGDIAL-1.18"
 image:
   preview_only: true
 ---

@@ -1,14 +1,14 @@
 ---
-title: "HINENI: Human Identity across the Nations of the Earth Ngram Investigator"
+title: "{HINENI:} Human Identity across the Nations of the Earth Ngram Investigator"
 authors:
   - "Dakota Handzlik"
   - "Jason Jeffrey Jones"
-  - "Steven S Skiena"
-date: '2024-01-01T00:00:00Z'
-publishDate: '2024-01-01T00:00:00Z'
+  - "Steven S. Skiena"
+date: '2024-06-03T00:00:00Z'
+publishDate: '2024-06-03T00:00:00Z'
 draft: false
-publication: "Proceedings of the International AAAI Conference on Web and Social Media"
-url_pdf: ""
+publication: "ICWSM"
+url_pdf: "https://doi.org/10.1609/ICWSM.V18I1.31331"
 image:
   preview_only: true
 ---

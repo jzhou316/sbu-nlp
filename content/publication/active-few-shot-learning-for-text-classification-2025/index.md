@@ -7,11 +7,11 @@ authors:
   - "Seyed Abolghasem Mirroshandel"
   - "Owen Rambow"
   - "Cornelia Caragea"
-date: '2025-01-01T00:00:00Z'
-publishDate: '2025-01-01T00:00:00Z'
+date: '2025-04-29T00:00:00Z'
+publishDate: '2025-04-29T00:00:00Z'
 draft: false
-publication: "arXiv preprint arXiv:2502.18782"
-url_pdf: "https://arxiv.org/pdf/2502.18782.pdf"
+publication: "NAACL"
+url_pdf: "https://doi.org/10.18653/V1/2025.NAACL-LONG.340"
 image:
   preview_only: true
 ---
