@@ -2,37 +2,24 @@
 <main class="container my-5">
   <h1 class="mb-4">{{ .Title | default "Publications" }}</h1>
 
-  <!-- {{ range .RegularPages.ByDate.Reverse }}
-    <article class="mb-4">
-      <div class="fw-semibold">{{ .Title }}</div>
-      {{ with .Params.authors }}<div class="text-muted">{{ delimit . ", " }}</div>{{ end }}
-      {{ with .Params.publication }}<div><em>{{ . }}</em></div>{{ end }}
-
-      <div class="mt-2">
-        {{ with .Params.url_pdf }}<a class="btn btn-sm btn-outline-primary me-2" href="{{ . }}">PDF</a>{{ end }}
-        {{ with .Params.url_code }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Code</a>{{ end }}
-        {{ with .Params.url_dataset }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Dataset</a>{{ end }}
-        {{ with .Params.url_video }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Video</a>{{ end }}
-      </div>
-    </article> -->
   {{ range .RegularPages.GroupByDate "2006" }}
-  <h2 class="mt-5 mb-3">{{ .Key }}</h2>
+    <h2 class="mt-5 mb-3">{{ .Key }}</h2>
 
-  {{ range .Pages.ByDate.Reverse }}
-    <article class="mb-4">
-      <div class="fw-semibold">{{ .Title }}</div>
-      {{ with .Params.authors }}<div class="text-muted">{{ delimit . ", " }}</div>{{ end }}
-      {{ with .Params.publication }}<div><em>{{ . }}</em></div>{{ end }}
+    {{ range .Pages.ByDate.Reverse }}
+      <article class="mb-4">
+        <div class="fw-semibold">{{ .Title }}</div>
+        {{ with .Params.authors }}<div class="text-muted">{{ delimit . ", " }}</div>{{ end }}
+        {{ with .Params.publication }}<div><em>{{ . }}</em></div>{{ end }}
 
-      <div class="mt-2">
-        {{ with .Params.url_pdf }}<a class="btn btn-sm btn-outline-primary me-2" href="{{ . }}">PDF</a>{{ end }}
-        {{ with .Params.url_code }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Code</a>{{ end }}
-        {{ with .Params.url_dataset }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Dataset</a>{{ end }}
-        {{ with .Params.url_video }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Video</a>{{ end }}
-      </div>
-    </article>
+        <div class="mt-2">
+          {{ with .Params.url_pdf }}<a class="btn btn-sm btn-outline-primary me-2" href="{{ . }}">PDF</a>{{ end }}
+          {{ with .Params.url_code }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Code</a>{{ end }}
+          {{ with .Params.url_dataset }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Dataset</a>{{ end }}
+          {{ with .Params.url_video }}<a class="btn btn-sm btn-outline-secondary me-2" href="{{ . }}">Video</a>{{ end }}
+        </div>
+      </article>
+    {{ end }}
   {{ end }}
-{{ end }}
-  {{ end }}
+
 </main>
 {{ end }}
