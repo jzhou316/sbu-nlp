@@ -8,7 +8,7 @@ authors:
 date: '2023-07-26T00:00:00Z'
 publishDate: '2023-07-26T00:00:00Z'
 draft: false
-publication: 'Proceedings of the 45th Annual Meeting of the Cognitive Scie'
+publication: 'Proceedings of the 45th Annual Meeting of the Cognitive Science Society 2023'
 url_pdf: 'https://escholarship.org/uc/item/4cf1s2dr'
 image:
   preview_only: true

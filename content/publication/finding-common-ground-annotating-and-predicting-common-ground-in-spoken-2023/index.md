@@ -9,7 +9,7 @@ authors:
 date: '2023-12-06T00:00:00Z'
 publishDate: '2023-12-06T00:00:00Z'
 draft: false
-publication: 'EMNLP'
+publication: 'EMNLP23'
 url_pdf: 'https://doi.org/10.18653/V1/2023.FINDINGS-EMNLP.551'
 image:
   preview_only: true

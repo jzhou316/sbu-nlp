@@ -9,7 +9,7 @@ authors:
 date: '2022-06-06T00:00:00Z'
 publishDate: '2022-06-06T00:00:00Z'
 draft: false
-publication: 'ICWSM'
+publication: 'ICWSM22'
 url_pdf: 'https://ojs.aaai.org/index.php/ICWSM/article/view/19358'
 image:
   preview_only: true

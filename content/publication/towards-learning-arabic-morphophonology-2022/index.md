@@ -7,7 +7,7 @@ authors:
 date: '2022-12-08T00:00:00Z'
 publishDate: '2022-12-08T00:00:00Z'
 draft: false
-publication: 'Proceedings of the The Seventh Arabic Natural Language Proce'
+publication: 'Proceedings of the The Seventh Arabic Natural Language Processing Workshop 2022'
 url_pdf: 'https://doi.org/10.18653/V1/2022.WANLP-1.27'
 image:
   preview_only: true

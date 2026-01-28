@@ -1,5 +1,5 @@
 ---
-title: 'Evaluation of LLMs-based Hidden States as Author Representations for Psychological Human-Centered {NLP} Tasks'
+title: 'Evaluation of LLMs-based Hidden States as Author Representations for Psychological Human-Centered NLP Tasks'
 authors:
   - 'Nikita Soni'
   - 'Pranav Chitale'
@@ -9,7 +9,7 @@ authors:
 date: '2025-04-29T00:00:00Z'
 publishDate: '2025-04-29T00:00:00Z'
 draft: false
-publication: 'NAACL'
+publication: 'NAACL25'
 url_pdf: 'https://doi.org/10.18653/V1/2025.FINDINGS-NAACL.426'
 image:
   preview_only: true

@@ -1,5 +1,5 @@
 ---
-title: 'Zero-Shot Belief: {A} Hard Problem for LLMs'
+title: 'Zero-Shot Belief: A Hard Problem for LLMs'
 authors:
   - 'John Murzaku'
   - 'Owen Rambow'

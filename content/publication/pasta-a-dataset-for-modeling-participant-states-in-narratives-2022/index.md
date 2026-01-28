@@ -1,5 +1,5 @@
 ---
-title: '{PASTA:} {A} Dataset for Modeling Participant States in Narratives'
+title: 'PASTA: A Dataset for Modeling Participant States in Narratives'
 authors:
   - 'Sayontan Ghosh'
   - 'Mahnaz Koupaee'

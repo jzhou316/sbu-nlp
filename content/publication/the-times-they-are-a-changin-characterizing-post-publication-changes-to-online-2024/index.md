@@ -8,7 +8,7 @@ authors:
 date: '2024-05-19T00:00:00Z'
 publishDate: '2024-05-19T00:00:00Z'
 draft: false
-publication: 'SP'
+publication: 'SP24'
 url_pdf: 'https://doi.org/10.1109/SP54263.2024.00033'
 image:
   preview_only: true

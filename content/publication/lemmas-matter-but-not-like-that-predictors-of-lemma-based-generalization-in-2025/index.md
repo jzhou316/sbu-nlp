@@ -6,7 +6,7 @@ authors:
 date: '2025-07-27T00:00:00Z'
 publishDate: '2025-07-27T00:00:00Z'
 draft: false
-publication: 'ACL'
+publication: 'ACL25'
 url_pdf: 'https://aclanthology.org/2025.findings-acl.1296/'
 image:
   preview_only: true

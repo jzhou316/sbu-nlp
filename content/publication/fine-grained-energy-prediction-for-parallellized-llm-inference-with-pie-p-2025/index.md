@@ -1,5 +1,5 @@
 ---
-title: 'Fine-Grained Energy Prediction For Parallellized {LLM} Inference With {PIE-P}'
+title: 'Fine-Grained Energy Prediction For Parallellized LLM Inference With PIE-P'
 authors:
   - 'Anurag Dutt'
   - 'Young Won Choi'

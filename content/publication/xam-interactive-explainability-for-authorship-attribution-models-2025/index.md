@@ -1,5 +1,5 @@
 ---
-title: '{XAM:} Interactive Explainability for Authorship Attribution Models'
+title: 'XAM: Interactive Explainability for Authorship Attribution Models'
 authors:
   - 'Milad Alshomary'
   - 'Anisha Bhatnagar'

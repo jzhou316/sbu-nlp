@@ -8,7 +8,7 @@ authors:
 date: '2024-08-16T00:00:00Z'
 publishDate: '2024-08-16T00:00:00Z'
 draft: false
-publication: 'Proceedings of The Second Arabic Natural Language Processing'
+publication: 'Proceedings of The Second Arabic Natural Language Processing Conference 2024'
 url_pdf: 'https://doi.org/10.18653/V1/2024.ARABICNLP-1.22'
 image:
   preview_only: true

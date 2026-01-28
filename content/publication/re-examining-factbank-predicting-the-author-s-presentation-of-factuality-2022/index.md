@@ -8,7 +8,7 @@ authors:
 date: '2022-10-12T00:00:00Z'
 publishDate: '2022-10-12T00:00:00Z'
 draft: false
-publication: 'COLING'
+publication: 'COLING22'
 url_pdf: 'https://aclanthology.org/2022.coling-1.66'
 image:
   preview_only: true

@@ -9,7 +9,7 @@ authors:
 date: '2022-01-01T00:00:00Z'
 publishDate: '2022-01-01T00:00:00Z'
 draft: false
-publication: 'Int. J. Data Sci. Anal.'
+publication: 'Int. J. Data Sci. Anal. 2022'
 url_pdf: 'https://doi.org/10.1007/S41060-022-00310-7'
 image:
   preview_only: true

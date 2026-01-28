@@ -1,5 +1,5 @@
 ---
-title: 'Evaluating LLMs with Multiple Problems at once: {A} New Paradigm for Probing {LLM} Capabilities'
+title: 'Evaluating LLMs with Multiple Problems at once: A New Paradigm for Probing LLM Capabilities'
 authors:
   - 'Zhengxiang Wang'
   - 'Jordan Kodner'

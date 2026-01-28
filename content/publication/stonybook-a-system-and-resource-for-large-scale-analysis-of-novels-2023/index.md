@@ -1,5 +1,5 @@
 ---
-title: '{STONYBOOK:} {A} System and Resource for Large-Scale Analysis of Novels'
+title: 'STONYBOOK: A System and Resource for Large-Scale Analysis of Novels'
 authors:
   - 'Charuta Pethe'
   - 'Allen Kim'

@@ -1,5 +1,5 @@
 ---
-title: 'Does RoBERTa Perform Better than {BERT} in Continual Learning: An Attention Sink Perspective'
+title: 'Does RoBERTa Perform Better than BERT in Continual Learning: An Attention Sink Perspective'
 authors:
   - 'Xueying Bai'
   - 'Yifan Sun'

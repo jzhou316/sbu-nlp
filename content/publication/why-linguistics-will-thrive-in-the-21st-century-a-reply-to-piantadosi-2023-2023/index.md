@@ -1,5 +1,5 @@
 ---
-title: 'Why Linguistics Will Thrive in the 21st Century: {A} Reply to Piantadosi {(2023)}'
+title: 'Why Linguistics Will Thrive in the 21st Century: A Reply to Piantadosi (2023)'
 authors:
   - 'Jordan Kodner'
   - 'Sarah R. B. Payne'

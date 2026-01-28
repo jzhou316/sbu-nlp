@@ -1,5 +1,5 @@
 ---
-title: '{\unicode{9835}} MuSiQue: Multihop Questions via Single-hop Question Composition'
+title: '\unicode9835 MuSiQue: Multihop Questions via Single-hop Question Composition'
 authors:
   - 'Harsh Trivedi'
   - 'Niranjan Balasubramanian'
@@ -8,7 +8,7 @@ authors:
 date: '2022-01-01T00:00:00Z'
 publishDate: '2022-01-01T00:00:00Z'
 draft: false
-publication: 'Trans. Assoc. Comput. Linguistics'
+publication: 'Trans. Assoc. Comput. Linguistics 2022'
 url_pdf: 'https://doi.org/10.1162/TACL\_A\_00475'
 image:
   preview_only: true

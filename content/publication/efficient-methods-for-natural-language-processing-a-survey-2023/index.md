@@ -1,8 +1,8 @@
 ---
-title: 'Efficient Methods for Natural Language Processing: {A} Survey'
+title: 'Efficient Methods for Natural Language Processing: A Survey'
 authors:
   - 'Marcos V. Treviso'
-  - 'Ji{-}Ung Lee'
+  - 'Ji-Ung Lee'
   - 'Tianchu Ji'
   - 'Betty van Aken'
   - 'Qingqing Cao'
@@ -12,7 +12,7 @@ authors:
   - 'Sara Hooker'
   - 'Colin Raffel'
   - 'Pedro Henrique Martins'
-  - 'Andr{\''{e}} F. T. Martins'
+  - 'Andr\''e F. T. Martins'
   - 'Jessica Zosa Forde'
   - 'Peter A. Milder'
   - 'Edwin Simpson'
@@ -26,7 +26,7 @@ authors:
 date: '2023-01-01T00:00:00Z'
 publishDate: '2023-01-01T00:00:00Z'
 draft: false
-publication: 'Trans. Assoc. Comput. Linguistics'
+publication: 'Trans. Assoc. Comput. Linguistics 2023'
 url_pdf: 'https://doi.org/10.1162/TACL\_A\_00577'
 image:
   preview_only: true

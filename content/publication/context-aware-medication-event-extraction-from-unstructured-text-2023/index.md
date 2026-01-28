@@ -8,7 +8,7 @@ authors:
 date: '2023-07-14T00:00:00Z'
 publishDate: '2023-07-14T00:00:00Z'
 draft: false
-publication: 'Proceedings of the 5th Clinical Natural Language Processing '
+publication: 'Proceedings of the 5th Clinical Natural Language Processing Workshop 2023'
 url_pdf: 'https://doi.org/10.18653/V1/2023.CLINICALNLP-1.11'
 image:
   preview_only: true

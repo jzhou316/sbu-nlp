@@ -6,7 +6,7 @@ authors:
 date: '2023-06-26T00:00:00Z'
 publishDate: '2023-06-26T00:00:00Z'
 draft: false
-publication: 'CPM'
+publication: 'CPM23'
 url_pdf: 'https://doi.org/10.4230/LIPICS.CPM.2023.20'
 image:
   preview_only: true

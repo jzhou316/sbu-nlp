@@ -1,7 +1,7 @@
 ---
 title: 'Evaluating Neural Language Models as Cognitive Models of Language Acquisition'
 authors:
-  - 'H{\''{e}}ctor Javier V{\''{a}}zquez Mart{\''{\i}}nez'
+  - 'H\''ector Javier V\''azquez Mart\''\inez'
   - 'Annika Lea Heuser'
   - 'Charles Yang'
   - 'Jordan Kodner'

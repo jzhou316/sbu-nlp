@@ -1,5 +1,5 @@
 ---
-title: 'DIAMONDs: {A} Dataset for \emph{D}ynamic \emph{I}nformation \emph{A}nd \emph{M}ental modeling \emph{O}f \emph{N}umeric \emph{D}iscussions'
+title: 'DIAMONDs: A Dataset for \emphDynamic \emphInformation \emphAnd \emphMental modeling \emphOf \emphNumeric \emphDiscussions'
 authors:
   - 'Sayontan Ghosh'
   - 'Mahnaz Koupaee'

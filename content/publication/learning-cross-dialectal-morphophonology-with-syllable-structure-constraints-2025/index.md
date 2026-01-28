@@ -8,7 +8,7 @@ authors:
 date: '2025-01-19T00:00:00Z'
 publishDate: '2025-01-19T00:00:00Z'
 draft: false
-publication: 'COLING'
+publication: 'COLING25'
 url_pdf: 'https://aclanthology.org/2025.vardial-1.12/'
 image:
   preview_only: true
