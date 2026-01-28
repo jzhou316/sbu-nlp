@@ -1,18 +1,18 @@
 ---
-title: "DIAMONDs: {A} Dataset for \emph{D}ynamic \emph{I}nformation \emph{A}nd \emph{M}ental modeling \emph{O}f \emph{N}umeric \emph{D}iscussions"
+title: 'DIAMONDs: {A} Dataset for \emph{D}ynamic \emph{I}nformation \emph{A}nd \emph{M}ental modeling \emph{O}f \emph{N}umeric \emph{D}iscussions'
 authors:
-  - "Sayontan Ghosh"
-  - "Mahnaz Koupaee"
-  - "Yash Kumar Lal"
-  - "Pegah Alipoormolabashi"
-  - "Mohammad Saqib Hasan"
-  - "Jun Seok Kang"
-  - "Niranjan Balasubramanian"
+  - 'Sayontan Ghosh'
+  - 'Mahnaz Koupaee'
+  - 'Yash Kumar Lal'
+  - 'Pegah Alipoormolabashi'
+  - 'Mohammad Saqib Hasan'
+  - 'Jun Seok Kang'
+  - 'Niranjan Balasubramanian'
 date: '2025-05-01T00:00:00Z'
 publishDate: '2025-05-01T00:00:00Z'
 draft: false
-publication: "arXiv:2505.12651"
-url_pdf: "https://arxiv.org/pdf/2505.12651.pdf"
+publication: 'arXiv:2505.12651'
+url_pdf: 'https://arxiv.org/pdf/2505.12651.pdf'
 image:
   preview_only: true
 ---
