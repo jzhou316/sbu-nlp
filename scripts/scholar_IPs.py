@@ -72,6 +72,25 @@ def serves_pdf_cached(url: str) -> bool:
     return ok
 
 
+def month_from_arxiv_bib(bib: dict) -> int | None:
+    """
+    Extract month from modern arXiv IDs like arXiv:2212.10509 -> month=12.
+    Returns 1..12 or None.
+    """
+    hay = " ".join([
+        str(bib.get("journal", "") or ""),
+        str(bib.get("citation", "") or ""),
+        str(bib.get("eprint", "") or ""),
+        str(bib.get("url", "") or ""),
+    ])
+
+    # Modern arXiv IDs: YYMM.NNNNN (optionally with v2, v3...)
+    m = re.search(r"arxiv:\s*(\d{2})(\d{2})\.\d{4,5}(?:v\d+)?", hay, re.IGNORECASE)
+    if not m:
+        return None
+
+    mm = int(m.group(2))
+    return mm if 1 <= mm <= 12 else None
 def cache_path_for_author(scholar_id: str) -> pathlib.Path:
     return CACHE_DIR / f"scholar_{scholar_id}.jsonl"
 
@@ -139,19 +158,23 @@ def parse_bibtex_month(bibtex: str) -> int | None:
         return mm if 1 <= mm <= 12 else None
     return _BIBTEX_MONTH_MAP.get(val)
 
-def resolve_pub_date_ymd(*, year: int, pub_obj) -> tuple[int, int, int]:
-    """
-    Returns (Y, M, D). D fixed to 1 for sorting.
-    Tries bibtex month; falls back to Jan.
-    """
+
+def resolve_pub_date_ymd(*, year: int, pub_obj, bib: dict) -> tuple[int, int, int]:
+    # 1) BibTeX month
     try:
-        bibtex = scholarly.bibtex(pub_obj)  # per scholarly docs :contentReference[oaicite:11]{index=11}
+        bibtex = scholarly.bibtex(pub_obj)
         mm = parse_bibtex_month(bibtex)
         if mm:
             return (year, mm, 1)
-    except Exception as e:
-        # bibtex export can fail if blocked or missing source
+    except Exception:
         pass
+
+    # 2) arXiv month from bib strings (YYMM...)
+    mm = month_from_arxiv_bib(bib)
+    if mm:
+        return (year, mm, 1)
+
+    # 3) fallback
     return (year, 1, 1)
 
 def ymd_to_hugo_iso(y: int, m: int, d: int) -> str:
@@ -552,6 +575,9 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
 
     print(f"Fetching author: {scholar_id}")
     author = scholarly.search_author_id(scholar_id)
+    if not author:
+        print(f"  warn: no author found for {scholar_id} (invalid ID or blocked)")
+        return out
     author = scholarly.fill(author, sections=["basics", "publications"])
     pubs = author.get("publications", []) or []
     cur_year = datetime.utcnow().year
@@ -575,6 +601,11 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
             continue
 
         bib = p.get("bib", {}) or {}
+
+        bib = dict(p.get("bib", {}) or {})
+        bib.pop("abstract", None)
+
+
         raw_title = (bib.get("title") or "").strip()
         title = sanitize_text(raw_title)
         # title = (bib.get("title") or "").strip()
@@ -597,7 +628,8 @@ def import_author_by_id_collect(scholar_id: str, seen_titles: set) -> List[PubRe
         if not yr or yr < YEAR_FROM or yr > cur_year:
             continue
 
-        y, m, d = resolve_pub_date_ymd(year=yr, pub_obj=p)
+        # y, m, d = resolve_pub_date_ymd(year=yr, pub_obj=p)
+        y, m, d = resolve_pub_date_ymd(year=yr, pub_obj=p, bib=bib)
 
         authors = normalize_authors(bib.get("author"))
         pdf_url = pick_pdf_url(p)
