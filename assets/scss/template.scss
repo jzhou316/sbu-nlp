@@ -8,27 +8,30 @@
   justify-content: center;
 }
 
+
+.people-person .avatar,
 .avatar,
-.avatar-circle,
+.avatar-circle {
+  width: 160px !important;
+  height: 160px !important;
+  overflow: visible !important;   /* in case theme clips children */
+  border-radius: 0 !important;    /* square */
+}
+
+/* Force the actual image to fill the box so object-fit can work */
+.people-person .avatar img,
 .avatar img,
 .avatar-circle img,
 .people-person img {
-  border-radius: 0 !important;
-}
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
 
-
-/* People page avatars: don't crop */
-.people-person .avatar,
-.people-person .avatar img,
-.avatar,
-.avatar img {
-  width: 160px;      /* optional; match your theme size */
-  height: 160px;     /* optional; match your theme size */
-}
-
-.people-person .avatar img,
-.avatar img {
   object-fit: contain !important;
   object-position: center center !important;
-  background: #fff; /* or transparent */
+
+  border-radius: 0 !important;
+  background: #fff;
+  display: block !important;
 }
