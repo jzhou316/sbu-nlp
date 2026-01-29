@@ -15,3 +15,20 @@
 .people-person img {
   border-radius: 0 !important;
 }
+
+
+/* People page avatars: don't crop */
+.people-person .avatar,
+.people-person .avatar img,
+.avatar,
+.avatar img {
+  width: 160px;      /* optional; match your theme size */
+  height: 160px;     /* optional; match your theme size */
+}
+
+.people-person .avatar img,
+.avatar img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #fff; /* or transparent */
+}
