@@ -17,7 +17,7 @@ main:
   #   url: event
   #   weight: 40
   - name: Reading Group
-    url: https://sites.google.com/site/nlpsbureadinggroup/
+    url: reading-group
     weight: 50
   - name: Speaker Seminar
     url: event
