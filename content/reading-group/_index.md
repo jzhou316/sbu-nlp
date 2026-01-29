@@ -23,7 +23,7 @@ xxxx
 
 ## Current & Past Semesters
 
-- [spring 2026](./spring-2026/)
+- [Spring 2026](./spring-2026/)
 
 ## Discussion leadership
 

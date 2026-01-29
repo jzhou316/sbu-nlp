@@ -7,3 +7,11 @@
 .cta-group {
   justify-content: center;
 }
+
+.avatar,
+.avatar-circle,
+.avatar img,
+.avatar-circle img,
+.people-person img {
+  border-radius: 0 !important;
+}
