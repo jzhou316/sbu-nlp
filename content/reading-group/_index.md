@@ -9,7 +9,7 @@ The Stony Brook NLP Reading Group meets regularly to discuss recent research pap
 ## Join / Announcements
 
 - **Email list / announcements**: [Join the Google Group](YOUR_GOOGLE_GROUP_LINK_HERE)
-- If you’re new: join the email list first—logistics and weekly reminders are posted there.
+- xxx
 
 ## How it works
 
