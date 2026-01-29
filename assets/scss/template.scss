@@ -35,3 +35,8 @@
   background: #fff;
   display: block !important;
 }
+
+people-person .avatar,
+.people-person .avatar * {
+  overflow: visible !important;
+}
