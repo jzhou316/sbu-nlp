@@ -1,6 +1,7 @@
 ---
 title: "Reading Group"
 cascade:
+  author: ""
   authors: []
   show_author_profile: false
   show_author: false
