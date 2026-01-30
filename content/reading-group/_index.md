@@ -1,5 +1,7 @@
 ---
 title: "Reading Group"
+cascade:
+  authors: []
 ---
 
 ## About
