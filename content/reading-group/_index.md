@@ -2,6 +2,8 @@
 title: "Reading Group"
 cascade:
   authors: []
+  show_author_profile: false
+  show_author: false
 ---
 
 ## About
