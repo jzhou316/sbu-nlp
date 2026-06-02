@@ -15,7 +15,7 @@ superuser: false
 role: PhD Student
 
 # Personal website
-website: https://joyyang158.github.io
+website: https://joyyang158.github.io/haoyan-yang/
 
 # Organizations/Affiliations
 organizations:
